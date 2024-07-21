@@ -57,7 +57,7 @@ describe('Validating welcome card and navigation elements', () => {
 			.and(
 				'have.attr',
 				'href',
-				'https://www.justinkurdila.com/_files/ugd/8fbca8_3d39554819604777bb6d0e8e06ad61e5.pdf'
+				'https://www.justinkurdila.com/_files/ugd/8fbca8_8ddd4f39453643b4aedd4f2979f6081d.pdf'
 			);
 	});
 
