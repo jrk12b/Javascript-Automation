@@ -1,4 +1,4 @@
-# QA Automation
+# Javascript QA Automation
 
 This repository holds the source code for the QA Automation used to test the website https://www.justinkurdila.com/
 
