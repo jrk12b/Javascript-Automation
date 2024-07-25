@@ -15,7 +15,7 @@ This repository holds the source code for the QA Automation used to test the web
 
 1. Clone repo locally
 
-* `git clone https://github.com/jrk12b/website_qa_automation.git`
+* `git clone https://github.com/jrk12b/Javascript-Automation.git`
 
 2. Install Dependencies
 
