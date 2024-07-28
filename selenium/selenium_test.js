@@ -3,7 +3,10 @@ require('chromedriver');
 
 (async function example() {
 	// Create a new instance of the Chrome driver
-	let driver = await new Builder().forBrowser('chrome').build();
+	let driver = await new Builder()
+		.usingServer('http://localhost:4444/wd/hub') // Ensure this matches the Selenium service URL
+		.forBrowser('chrome')
+		.build();
 
 	try {
 		// Navigate to a web page
