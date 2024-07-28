@@ -18,14 +18,14 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/jrk12b/QA-Automation.git"
+		"url": "https://github.com/jrk12b/Javascript-Automation.git"
 	},
 	"author": "Justin Kurdila",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/jrk12b/QA-Automation/issues"
+		"url": "https://github.com/jrk12b/Javascript-Automation/issues"
 	},
-	"homepage": "https://github.com/jrk12b/QA-Automationn#readme",
+	"homepage": "https://github.com/jrk12b/Javascript-Automationn#readme",
 	"devDependencies": {
 		"@cypress-audit/lighthouse": "^1.4.2",
 		"cypress": "^12.17.4",

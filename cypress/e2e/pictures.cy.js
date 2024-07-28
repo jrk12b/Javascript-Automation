@@ -1,12 +1,11 @@
 /// <reference types="cypress" />
-import { waitForPageLoadPictures } from '../support/helpers';
 import selectors from '../support/selectors';
 import data from '../support/data.js';
 
 describe('Validating contact section elements', () => {
 	beforeEach(() => {
 		cy.visit('https://www.justinkurdila.com/pictures');
-		waitForPageLoadPictures();
+		cy.waitForPageLoadPictures();
 	});
 
 	it('validate navigation menu contains expected items', () => {

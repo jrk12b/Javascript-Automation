@@ -1,13 +1,12 @@
 /// <reference types="cypress" />
 import 'cypress-time-marks';
-import { validateLandingPageLoad } from '../support/helpers.js';
 
 describe('Validating welcome card and navigation elements', () => {
 	it('Performance: Page Timing', () => {
 		cy.timeMark('start');
 
 		cy.visit('https://www.justinkurdila.com/');
-		validateLandingPageLoad();
+		cy.validateLandingPageLoad();
 
 		cy.timeMark('finish');
 

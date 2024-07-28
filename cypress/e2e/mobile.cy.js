@@ -1,5 +1,4 @@
 /// <reference types="cypress" />
-import { waitForPageLoad } from '../support/helpers.js';
 
 // mobile device sizes tested
 const devices = [
@@ -26,7 +25,7 @@ const devices = [
 describe('Validating mobile responsiveness on various devices', () => {
 	beforeEach(() => {
 		cy.visit('https://www.justinkurdila.com/');
-		waitForPageLoad();
+		cy.waitForPageLoad();
 	});
 
 	devices.forEach((device) => {

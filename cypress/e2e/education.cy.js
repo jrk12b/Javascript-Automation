@@ -1,11 +1,10 @@
 /// <reference types="cypress" />
-import { waitForPageLoad } from '../support/helpers';
 import data from '../support/data.js';
 
 describe('Validating education section elements', () => {
 	beforeEach(() => {
 		cy.visit('https://www.justinkurdila.com/');
-		waitForPageLoad();
+		cy.waitForPageLoad();
 	});
 
 	it('validate education header exists', () => {

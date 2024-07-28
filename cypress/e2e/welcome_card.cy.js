@@ -1,12 +1,11 @@
 /// <reference types="cypress" />
 import selectors from '../support/selectors.js';
 import data from '../support/data.js';
-import { waitForPageLoad } from '../support/helpers';
 
 describe('Validating welcome card and navigation elements', () => {
 	beforeEach(() => {
 		cy.visit('https://www.justinkurdila.com/');
-		waitForPageLoad();
+		cy.waitForPageLoad();
 	});
 
 	it('validate gallery of pictures is visible', () => {
