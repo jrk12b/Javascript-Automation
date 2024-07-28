@@ -1,10 +1,10 @@
 import 'cypress-audit/commands';
 import '@cypress-audit/lighthouse/commands';
-import selectors from './selectors'; 
+import selectors from './selectors';
 import data from '../support/data.js';
 
 Cypress.Commands.add('waitForPageLoad', () => {
-    cy.get(selectors.site_header, { timeout: 15000 }).should('exist');
+	cy.get(selectors.site_header, { timeout: 15000 }).should('exist');
 	cy.get(selectors.slide_show_gallery, { timeout: 15000 }).should('be.visible');
 	cy.get(selectors.big_container, { timeout: 15000 }).should('be.visible');
 });

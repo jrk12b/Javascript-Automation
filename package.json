@@ -13,6 +13,7 @@
 		"cy:run-firefox": "npx cypress run --browser firefox",
 		"cy:run-edge": "npx cypress run --browser edge",
 		"cy:run-electron": "npx cypress run --browser electron",
+		"se:run": "node selenium/selenium_test.js",
 		"format-check": "npx prettier --check .",
 		"format-write": "npx prettier --write ."
 	},
@@ -28,15 +29,14 @@
 	"homepage": "https://github.com/jrk12b/Javascript-Automationn#readme",
 	"devDependencies": {
 		"@cypress-audit/lighthouse": "^1.4.2",
+		"chromedriver": "^126.0.5",
 		"cypress": "^12.17.4",
 		"cypress-audit": "^1.1.0",
 		"cypress-time-marks": "^1.6.0",
 		"jest": "^29.6.2",
 		"newman": "^5.3.2",
 		"postman": "^0.2.0",
-		"prettier": "3.0.3"
-	},
-	"dependencies": {
-
+		"prettier": "3.0.3",
+		"selenium-webdriver": "^4.23.0"
 	}
 }
