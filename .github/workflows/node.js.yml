@@ -84,7 +84,7 @@ jobs:
       selenium:
         image: selenium/standalone-chrome:latest
         ports:
-          - 3000:3000
+          - 4444:4444
         options: --shm-size=3g
     steps:
       - name: Checkout Code
@@ -94,7 +94,7 @@ jobs:
       - name: Run Selenium tests
         run: npm run se:run
         env:
-          CHROMEDRIVER_PORT: 3000
+          CHROMEDRIVER_PORT: 4444
           SELENIUM_HOST: localhost
-          SELENIUM_PORT: 3000
-          SELENIUM_SERVER_URL: http://localhost:3000/wd/hub
+          SELENIUM_PORT: 4444
+          SELENIUM_SERVER_URL: http://localhost:4444/wd/hub
