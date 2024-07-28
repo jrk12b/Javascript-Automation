@@ -80,13 +80,12 @@ jobs:
 
   selenium-run:
     runs-on: ubuntu-latest
-    needs: [format-and-setup]
     services:
       selenium:
         image: selenium/standalone-chrome:latest
         ports:
           - 4444:4444
-        options: --shm-size=2g
+        options: --shm-size=3g
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -96,3 +95,5 @@ jobs:
         run: npm run se:run
         env:
           CHROMEDRIVER_PORT: 4444
+          SELENIUM_HOST: localhost
+          SELENIUM_PORT: 4444
