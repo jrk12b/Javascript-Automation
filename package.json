@@ -13,7 +13,8 @@
 		"cy:run-firefox": "npx cypress run --browser firefox",
 		"cy:run-edge": "npx cypress run --browser edge",
 		"cy:run-electron": "npx cypress run --browser electron",
-		"se:run": "mocha 'selenium tests/elements/textBox.js'",
+		"se:run:headless": "HEADLESS=true mocha 'selenium tests/*/*.js'",
+		"se:run": "mocha 'selenium tests/*/*.js'",
 		"format-check": "npx prettier --check .",
 		"format-write": "npx prettier --write ."
 	},

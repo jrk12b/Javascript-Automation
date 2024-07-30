@@ -1,6 +1,13 @@
-const { Builder, By, until } = require('selenium-webdriver');
+const { Builder, By } = require('selenium-webdriver');
+const chrome = require('selenium-webdriver/chrome');
 require('chromedriver');
 const config = require('../selenium_config');
+
+const chromeOptions = new chrome.Options();
+
+if (process.env.HEADLESS === 'true') {
+	chromeOptions.addArguments('--headless');
+}
 
 describe('Text Box Tests', function () {
 	this.timeout(config.timeout);
@@ -8,12 +15,13 @@ describe('Text Box Tests', function () {
 	const seleniumServerUrl = process.env.SELENIUM_SERVER_URL || '';
 
 	before(async function () {
-		driver = await new Builder().usingServer(seleniumServerUrl).forBrowser('chrome').build();
+		driver = await new Builder()
+			.usingServer(seleniumServerUrl)
+			.forBrowser('chrome')
+			.setChromeOptions(chromeOptions)
+			.build();
 		await driver.get(config.baseUrl);
-		const elementsLink = await driver.findElement(By.xpath("//h5[contains(text(), 'Elements')]"));
-		await elementsLink.click();
-		const textBoxLink = await driver.findElement(By.xpath("//span[contains(text(), 'Text Box')]"));
-		await textBoxLink.click();
+		await driver.get(`${config.baseUrl}text-box`);
 	});
 
 	beforeEach(async function () {
@@ -28,29 +36,14 @@ describe('Text Box Tests', function () {
 		const userForm = await driver.findElement(By.id('userForm'));
 		await userForm.isDisplayed();
 
-		const userNameLabel = await driver.findElement(By.id('userName-label'));
-		await userNameLabel.isDisplayed();
+		const elements = ['userName', 'userEmail', 'currentAddress', 'permanentAddress'];
+		elements.forEach((element) => {
+			let label = driver.findElement(By.id(`${element}-label`));
+			label.isDisplayed();
 
-		const userName = await driver.findElement(By.id('userName'));
-		await userName.isDisplayed();
-
-		const userEmailLabel = await driver.findElement(By.id('userEmail-label'));
-		await userEmailLabel.isDisplayed();
-
-		const userEmail = await driver.findElement(By.id('userEmail'));
-		await userEmail.isDisplayed();
-
-		const currentAddressLabel = await driver.findElement(By.id('currentAddress-label'));
-		await currentAddressLabel.isDisplayed();
-
-		const currentAddress = await driver.findElement(By.id('currentAddress'));
-		await currentAddress.isDisplayed();
-
-		const permanentAddressLabel = await driver.findElement(By.id('permanentAddress-label'));
-		await permanentAddressLabel.isDisplayed();
-
-		const permanentAddress = await driver.findElement(By.id('permanentAddress'));
-		await permanentAddress.isDisplayed();
+			let field = driver.findElement(By.id(`${element}`));
+			field.isDisplayed();
+		});
 
 		const submitButton = await driver.findElement(By.id('submit'));
 		await submitButton.isDisplayed();
@@ -64,6 +57,7 @@ describe('Text Box Tests', function () {
 		await userName.sendKeys('JustinTest');
 
 		const submitButton = await driver.findElement(By.id('submit'));
+		await driver.executeScript('arguments[0].scrollIntoView(true);', submitButton);
 		await submitButton.click();
 
 		const output = await driver.findElement(By.id('output'));
@@ -87,6 +81,7 @@ describe('Text Box Tests', function () {
 		await userEmail.sendKeys('justin@test.com');
 
 		const submitButton = await driver.findElement(By.id('submit'));
+		await driver.executeScript('arguments[0].scrollIntoView(true);', submitButton);
 		await submitButton.click();
 
 		const output = await driver.findElement(By.id('output'));
@@ -110,6 +105,7 @@ describe('Text Box Tests', function () {
 		await currentAddress.sendKeys('123 Current Drive');
 
 		const submitButton = await driver.findElement(By.id('submit'));
+		await driver.executeScript('arguments[0].scrollIntoView(true);', submitButton);
 		await submitButton.click();
 
 		const output = await driver.findElement(By.id('output'));
@@ -133,6 +129,7 @@ describe('Text Box Tests', function () {
 		await permanentAddress.sendKeys('123 Permanent Drive');
 
 		const submitButton = await driver.findElement(By.id('submit'));
+		await driver.executeScript('arguments[0].scrollIntoView(true);', submitButton);
 		await submitButton.click();
 
 		const output = await driver.findElement(By.id('output'));
