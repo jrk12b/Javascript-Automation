@@ -51,10 +51,10 @@ describe('Radio button Tests', function () {
 	it('Validate Impressive button radio', async function () {
 		const chai = await import('chai');
 		const expect = chai.expect;
+
 		const impressiveRadio = await driver.findElement(By.css('label[for="impressiveRadio"]'));
 		await driver.executeScript('arguments[0].scrollIntoView(true);', impressiveRadio);
 		await impressiveRadio.click();
-
 		const textSuccess = await driver.findElement(By.className('text-success'));
 		await driver.executeScript('arguments[0].scrollIntoView(true);', textSuccess);
 		await textSuccess.isDisplayed();
