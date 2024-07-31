@@ -37,13 +37,13 @@ describe('Text Box Tests', function () {
 		await userForm.isDisplayed();
 
 		const elements = ['userName', 'userEmail', 'currentAddress', 'permanentAddress'];
-		elements.forEach((element) => {
-			let label = driver.findElement(By.id(`${element}-label`));
-			label.isDisplayed();
+		for (const element of elements) {
+			let label = await driver.findElement(By.id(`${element}-label`));
+			await label.isDisplayed();
 
-			let field = driver.findElement(By.id(`${element}`));
-			field.isDisplayed();
-		});
+			let field = await driver.findElement(By.id(`${element}`));
+			await field.isDisplayed();
+		}
 
 		const submitButton = await driver.findElement(By.id('submit'));
 		await submitButton.isDisplayed();
