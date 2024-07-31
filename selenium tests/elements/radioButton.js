@@ -1,27 +1,12 @@
-const { Builder, By } = require('selenium-webdriver');
-const chrome = require('selenium-webdriver/chrome');
-require('chromedriver');
-const config = require('../selenium_config');
-
-const chromeOptions = new chrome.Options();
-
-if (process.env.HEADLESS === 'true') {
-	chromeOptions.addArguments('--headless');
-}
+const { setupDriver, teardownDriver, BASE_URL, TIMEOUT, By } = require('../seleniumSetup');
 
 describe('Radio button Tests', function () {
-	this.timeout(config.timeout);
+	this.timeout(TIMEOUT);
 	let driver;
-	const seleniumServerUrl = process.env.SELENIUM_SERVER_URL || '';
 
 	before(async function () {
-		driver = await new Builder()
-			.usingServer(seleniumServerUrl)
-			.forBrowser('chrome')
-			.setChromeOptions(chromeOptions)
-			.build();
-		await driver.get(config.baseUrl);
-		await driver.get(`${config.baseUrl}radio-button`);
+		driver = await setupDriver();
+		await driver.get(`${BASE_URL}radio-button`);
 	});
 
 	beforeEach(async function () {
@@ -29,7 +14,7 @@ describe('Radio button Tests', function () {
 	});
 
 	after(async function () {
-		await driver.quit();
+		await teardownDriver(driver);
 	});
 
 	it('Validate Radio button Fields are visible', async function () {

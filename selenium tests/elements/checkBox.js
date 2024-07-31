@@ -1,27 +1,12 @@
-const { Builder, By } = require('selenium-webdriver');
-const chrome = require('selenium-webdriver/chrome');
-require('chromedriver');
-const config = require('../selenium_config');
-
-const chromeOptions = new chrome.Options();
-
-if (process.env.HEADLESS === 'true') {
-	chromeOptions.addArguments('--headless');
-}
+const { setupDriver, teardownDriver, BASE_URL, TIMEOUT, By } = require('../seleniumSetup');
 
 describe('Check Box Tests', function () {
-	this.timeout(config.timeout);
+	this.timeout(TIMEOUT);
 	let driver;
-	const seleniumServerUrl = process.env.SELENIUM_SERVER_URL || '';
 
 	before(async function () {
-		driver = await new Builder()
-			.usingServer(seleniumServerUrl)
-			.forBrowser('chrome')
-			.setChromeOptions(chromeOptions)
-			.build();
-		await driver.get(config.baseUrl);
-		await driver.get(`${config.baseUrl}checkbox`);
+		driver = await setupDriver();
+		await driver.get(`${BASE_URL}checkbox`);
 	});
 
 	beforeEach(async function () {
@@ -29,13 +14,10 @@ describe('Check Box Tests', function () {
 	});
 
 	after(async function () {
-		await driver.quit();
+		await teardownDriver(driver);
 	});
 
 	it('Validate Check Box Fields are visible', async function () {
-		const chai = await import('chai');
-		const expect = chai.expect;
-
 		const label = await driver.findElement(By.xpath("//h1[contains(text(), 'Check Box')]"));
 		await label.isDisplayed();
 
@@ -53,9 +35,6 @@ describe('Check Box Tests', function () {
 	});
 
 	it('Validate Expand All Toggle', async function () {
-		const chai = await import('chai');
-		const expect = chai.expect;
-
 		const expandtoggle = await driver.findElement(By.className('rct-option-expand-all'));
 		await driver.executeScript('arguments[0].scrollIntoView(true);', expandtoggle);
 		await expandtoggle.click();

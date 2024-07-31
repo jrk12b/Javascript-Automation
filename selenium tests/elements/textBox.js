@@ -1,27 +1,12 @@
-const { Builder, By } = require('selenium-webdriver');
-const chrome = require('selenium-webdriver/chrome');
-require('chromedriver');
-const config = require('../selenium_config');
-
-const chromeOptions = new chrome.Options();
-
-if (process.env.HEADLESS === 'true') {
-	chromeOptions.addArguments('--headless');
-}
+const { setupDriver, teardownDriver, BASE_URL, TIMEOUT, By } = require('../seleniumSetup');
 
 describe('Text Box Tests', function () {
-	this.timeout(config.timeout);
+	this.timeout(TIMEOUT);
 	let driver;
-	const seleniumServerUrl = process.env.SELENIUM_SERVER_URL || '';
 
 	before(async function () {
-		driver = await new Builder()
-			.usingServer(seleniumServerUrl)
-			.forBrowser('chrome')
-			.setChromeOptions(chromeOptions)
-			.build();
-		await driver.get(config.baseUrl);
-		await driver.get(`${config.baseUrl}text-box`);
+		driver = await setupDriver();
+		await driver.get(`${BASE_URL}text-box`);
 	});
 
 	beforeEach(async function () {
@@ -29,7 +14,7 @@ describe('Text Box Tests', function () {
 	});
 
 	after(async function () {
-		await driver.quit();
+		await teardownDriver(driver);
 	});
 
 	it('Validate Text Box Fields are visible', async function () {
@@ -61,13 +46,10 @@ describe('Text Box Tests', function () {
 		await submitButton.click();
 
 		const output = await driver.findElement(By.id('output'));
-
 		await driver.executeScript('arguments[0].scrollIntoView(true);', output);
 
 		const outputName = await output.findElement(By.id('name'));
-
 		await outputName.isDisplayed();
-
 		const outputText = await outputName.getText();
 
 		expect(outputText).to.include('JustinTest');
@@ -85,13 +67,10 @@ describe('Text Box Tests', function () {
 		await submitButton.click();
 
 		const output = await driver.findElement(By.id('output'));
-
 		await driver.executeScript('arguments[0].scrollIntoView(true);', output);
 
 		const outputName = await output.findElement(By.id('email'));
-
 		await outputName.isDisplayed();
-
 		const outputText = await outputName.getText();
 
 		expect(outputText).to.include('justin@test.com');
@@ -109,13 +88,10 @@ describe('Text Box Tests', function () {
 		await submitButton.click();
 
 		const output = await driver.findElement(By.id('output'));
-
 		await driver.executeScript('arguments[0].scrollIntoView(true);', output);
 
 		const outputName = await output.findElement(By.id('currentAddress'));
-
 		await outputName.isDisplayed();
-
 		const outputText = await outputName.getText();
 
 		expect(outputText).to.include('123 Current Drive');
@@ -133,13 +109,10 @@ describe('Text Box Tests', function () {
 		await submitButton.click();
 
 		const output = await driver.findElement(By.id('output'));
-
 		await driver.executeScript('arguments[0].scrollIntoView(true);', output);
 
 		const outputName = await output.findElement(By.id('permanentAddress'));
-
 		await outputName.isDisplayed();
-
 		const outputText = await outputName.getText();
 
 		expect(outputText).to.include('123 Permanent Drive');
