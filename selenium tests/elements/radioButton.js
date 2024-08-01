@@ -41,6 +41,8 @@ describe('Radio button Tests', function () {
 		await driver.executeScript('arguments[0].scrollIntoView(true);', yesRadio);
 		await yesRadio.click();
 
+		await driver.sleep(3000);
+
 		const textSuccess = await driver.findElement(By.className('text-success'));
 		await driver.executeScript('arguments[0].scrollIntoView(true);', textSuccess);
 		await textSuccess.isDisplayed();
@@ -55,6 +57,9 @@ describe('Radio button Tests', function () {
 		const impressiveRadio = await driver.findElement(By.css('label[for="impressiveRadio"]'));
 		await driver.executeScript('arguments[0].scrollIntoView(true);', impressiveRadio);
 		await impressiveRadio.click();
+
+		await driver.sleep(3000);
+
 		const textSuccess = await driver.findElement(By.className('text-success'));
 		await driver.executeScript('arguments[0].scrollIntoView(true);', textSuccess);
 		await textSuccess.isDisplayed();

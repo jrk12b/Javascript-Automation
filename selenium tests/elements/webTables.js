@@ -1,6 +1,6 @@
 const { setupDriver, teardownDriver, BASE_URL, TIMEOUT, By } = require('../seleniumSetup');
 
-describe('Text Box Tests', function () {
+describe('Web Tables Tests', function () {
 	this.timeout(TIMEOUT);
 	let driver;
 
@@ -184,17 +184,245 @@ describe('Text Box Tests', function () {
 		expect(departmentDeleted.length).to.eq(0);
 	});
 
-	it('Validate search box works', async function () {});
+	it('Validate search box works', async function () {
+		const chai = await import('chai');
+		const expect = chai.expect;
 
-	it('Validate sorting by first name column', async function () {});
+		const searchBox = await driver.findElement(By.id('searchBox'));
+		await searchBox.sendKeys('Cierra');
 
-	it('Validate sorting by last name column', async function () {});
+		const firstNameResult = await driver.findElement(By.xpath("//div[contains(text(), 'Cierra')]"));
+		await firstNameResult.isDisplayed();
 
-	it('Validate sorting by Age column', async function () {});
+		const lastNameResult = await driver.findElement(By.xpath("//div[contains(text(), 'Vega')]"));
+		await lastNameResult.isDisplayed();
 
-	it('Validate sorting by Email column', async function () {});
+		const emailResult = await driver.findElement(
+			By.xpath("//div[contains(text(), 'cierra@example.com')]")
+		);
+		await emailResult.isDisplayed();
 
-	it('Validate sorting by Salary column', async function () {});
+		const ageResult = await driver.findElement(By.xpath("//div[contains(text(), '39')]"));
+		await ageResult.isDisplayed();
 
-	it('Validate sorting by Department column', async function () {});
+		const salaryResult = await driver.findElement(By.xpath("//div[contains(text(), '10000')]"));
+		await salaryResult.isDisplayed();
+
+		const departmentResult = await driver.findElement(
+			By.xpath("//div[contains(text(), 'Insurance')]")
+		);
+		await departmentResult.isDisplayed();
+
+		const firstNameDeleted = await driver.findElements(
+			By.xpath("//div[contains(text(), 'Alden')]")
+		);
+		expect(firstNameDeleted.length).to.eq(0);
+
+		const lastNameDeleted = await driver.findElements(
+			By.xpath("//div[contains(text(), 'Cantrell')]")
+		);
+		expect(lastNameDeleted.length).to.eq(0);
+
+		const ageDeleted = await driver.findElements(By.xpath("//div[contains(text(), '45')]"));
+		expect(ageDeleted.length).to.eq(0);
+
+		const emailDeleted = await driver.findElements(
+			By.xpath("//div[contains(text(), 'alden@example.com')]")
+		);
+		expect(emailDeleted.length).to.eq(0);
+
+		const salaryDeleted = await driver.findElements(By.xpath("//div[contains(text(), '12000')]"));
+		expect(salaryDeleted.length).to.eq(0);
+
+		const departmentDeleted = await driver.findElements(
+			By.xpath("//div[contains(text(), 'Compliance')]")
+		);
+		expect(departmentDeleted.length).to.eq(0);
+	});
+
+	it('Validate sorting by first name column', async function () {
+		const chai = await import('chai');
+		const expect = chai.expect;
+
+		const firstNameSort = await driver.findElement(
+			By.xpath(
+				"//div[contains(@class, 'rt-resizable-header-content') and contains(text(), 'First Name')]"
+			)
+		);
+		await driver.executeScript('arguments[0].scrollIntoView(true);', firstNameSort);
+		await firstNameSort.click();
+
+		const firstNameColumn = await driver.findElement(By.className('-sort-asc'));
+		const firstNameColumnClass = await firstNameColumn.getAttribute('class');
+		expect(firstNameColumnClass).includes('-sort-asc');
+
+		const dataTable = await driver.findElement(By.className('rt-tr -odd'));
+		const firstEntry = await dataTable.findElement(By.css('div:first-child'));
+		const firstNameText = await firstEntry.getText();
+		expect(firstNameText).to.eq('Alden');
+
+		await driver.executeScript('arguments[0].scrollIntoView(true);', firstNameSort);
+		await firstNameSort.click();
+
+		const firstNameColumnDesc = await driver.findElement(By.className('-sort-desc'));
+		const firstNameColumnClassDesc = await firstNameColumnDesc.getAttribute('class');
+		expect(firstNameColumnClassDesc).includes('-sort-desc');
+
+		const firstEntryDesc = await dataTable.findElement(By.css('div:first-child'));
+		const firstNameTextDesc = await firstEntryDesc.getText();
+		expect(firstNameTextDesc).to.eq('Kierra');
+	});
+
+	it('Validate sorting by last name column', async function () {
+		const chai = await import('chai');
+		const expect = chai.expect;
+
+		const lastNameSort = await driver.findElement(
+			By.xpath(
+				"//div[contains(@class, 'rt-resizable-header-content') and contains(text(), 'Last Name')]"
+			)
+		);
+		await lastNameSort.click();
+
+		const lastNameColumn = await driver.findElement(By.className('-sort-asc'));
+		const lastNameColumnClass = await lastNameColumn.getAttribute('class');
+		expect(lastNameColumnClass).includes('-sort-asc');
+
+		const dataTable = await driver.findElement(By.className('rt-tr -odd'));
+		const firstEntry = await dataTable.findElement(By.css('div:nth-of-type(2)'));
+		const lastNameText = await firstEntry.getText();
+		expect(lastNameText).to.eq('Cantrell');
+
+		await lastNameSort.click();
+
+		const lastNameColumnDesc = await driver.findElement(By.className('-sort-desc'));
+		const lastNameColumnClassDesc = await lastNameColumnDesc.getAttribute('class');
+		expect(lastNameColumnClassDesc).includes('-sort-desc');
+
+		const firstEntryDesc = await dataTable.findElement(By.css('div:nth-of-type(2)'));
+		const lastNameTextDesc = await firstEntryDesc.getText();
+		expect(lastNameTextDesc).to.eq('Vega');
+	});
+
+	it('Validate sorting by Age column', async function () {
+		const chai = await import('chai');
+		const expect = chai.expect;
+
+		const ageSort = await driver.findElement(
+			By.xpath("//div[contains(@class, 'rt-resizable-header-content') and contains(text(), 'Age')]")
+		);
+		await ageSort.click();
+
+		const ageColumn = await driver.findElement(By.className('-sort-asc'));
+		const ageColumnClass = await ageColumn.getAttribute('class');
+		expect(ageColumnClass).includes('-sort-asc');
+
+		const dataTable = await driver.findElement(By.className('rt-tr -odd'));
+		const firstEntry = await dataTable.findElement(By.css('div:nth-of-type(3)'));
+		const ageText = await firstEntry.getText();
+		expect(ageText).to.eq('29');
+
+		await ageSort.click();
+
+		const ageColumnDesc = await driver.findElement(By.className('-sort-desc'));
+		const ageColumnClassDesc = await ageColumnDesc.getAttribute('class');
+		expect(ageColumnClassDesc).includes('-sort-desc');
+
+		const firstEntryDesc = await dataTable.findElement(By.css('div:nth-of-type(3)'));
+		const ageTextDesc = await firstEntryDesc.getText();
+		expect(ageTextDesc).to.eq('45');
+	});
+
+	it('Validate sorting by Email column', async function () {
+		const chai = await import('chai');
+		const expect = chai.expect;
+
+		const emailSort = await driver.findElement(
+			By.xpath(
+				"//div[contains(@class, 'rt-resizable-header-content') and contains(text(), 'Email')]"
+			)
+		);
+		await emailSort.click();
+
+		const emailColumn = await driver.findElement(By.className('-sort-asc'));
+		const emailColumnClass = await emailColumn.getAttribute('class');
+		expect(emailColumnClass).includes('-sort-asc');
+
+		const dataTable = await driver.findElement(By.className('rt-tr -odd'));
+		const firstEntry = await dataTable.findElement(By.css('div:nth-of-type(4)'));
+		const emailText = await firstEntry.getText();
+		expect(emailText).to.eq('alden@example.com');
+
+		await emailSort.click();
+
+		const emailColumnDesc = await driver.findElement(By.className('-sort-desc'));
+		const emailColumnClassDesc = await emailColumnDesc.getAttribute('class');
+		expect(emailColumnClassDesc).includes('-sort-desc');
+
+		const firstEntryDesc = await dataTable.findElement(By.css('div:nth-of-type(4)'));
+		const emailTextDesc = await firstEntryDesc.getText();
+		expect(emailTextDesc).to.eq('kierra@example.com');
+	});
+
+	it('Validate sorting by Salary column', async function () {
+		const chai = await import('chai');
+		const expect = chai.expect;
+
+		const salarySort = await driver.findElement(
+			By.xpath(
+				"//div[contains(@class, 'rt-resizable-header-content') and contains(text(), 'Salary')]"
+			)
+		);
+		await salarySort.click();
+
+		const salaryColumn = await driver.findElement(By.className('-sort-asc'));
+		const salaryColumnClass = await salaryColumn.getAttribute('class');
+		expect(salaryColumnClass).includes('-sort-asc');
+
+		const dataTable = await driver.findElement(By.className('rt-tr -odd'));
+		const firstEntry = await dataTable.findElement(By.css('div:nth-of-type(5)'));
+		const salaryText = await firstEntry.getText();
+		expect(salaryText).to.eq('2000');
+
+		await salarySort.click();
+
+		const salaryColumnDesc = await driver.findElement(By.className('-sort-desc'));
+		const salaryColumnClassDesc = await salaryColumnDesc.getAttribute('class');
+		expect(salaryColumnClassDesc).includes('-sort-desc');
+
+		const firstEntryDesc = await dataTable.findElement(By.css('div:nth-of-type(5)'));
+		const salaryTextDesc = await firstEntryDesc.getText();
+		expect(salaryTextDesc).to.eq('12000');
+	});
+
+	it('Validate sorting by Department column', async function () {
+		const chai = await import('chai');
+		const expect = chai.expect;
+
+		const departmentSort = await driver.findElement(
+			By.xpath(
+				"//div[contains(@class, 'rt-resizable-header-content') and contains(text(), 'Department')]"
+			)
+		);
+		await departmentSort.click();
+
+		const departmentColumn = await driver.findElement(By.className('-sort-asc'));
+		const departmentColumnClass = await departmentColumn.getAttribute('class');
+		expect(departmentColumnClass).includes('-sort-asc');
+
+		const dataTable = await driver.findElement(By.className('rt-tr -odd'));
+		const firstEntry = await dataTable.findElement(By.css('div:nth-of-type(6)'));
+		const departmentText = await firstEntry.getText();
+		expect(departmentText).to.eq('Compliance');
+
+		await departmentSort.click();
+
+		const departmentColumnDesc = await driver.findElement(By.className('-sort-desc'));
+		const departmentColumnClassDesc = await departmentColumnDesc.getAttribute('class');
+		expect(departmentColumnClassDesc).includes('-sort-desc');
+
+		const firstEntryDesc = await dataTable.findElement(By.css('div:nth-of-type(6)'));
+		const departmentTextDesc = await firstEntryDesc.getText();
+		expect(departmentTextDesc).to.eq('Legal');
+	});
 });
