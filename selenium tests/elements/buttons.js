@@ -68,19 +68,6 @@ describe('Button Tests', function () {
 		expect(doubleClickMessageNotVisible.length).to.eq(0);
 	});
 
-	it.only('Validate Right Click Button', async function () {
-		await driver.sleep(4000);
-
-		const rightClickButton = await driver.findElement(By.id('rightClickBtn'));
-		let actions = driver.actions({ async: true });
-		await actions.contextClick(rightClickButton).perform();
-
-		await driver.sleep(4000);
-
-		const rightClickMessage = await driver.findElement(By.id('rightClickMessage'));
-		await rightClickMessage.isDisplayed();
-	});
-
 	it('Validate clicking Right Click Button', async function () {
 		const chai = await import('chai');
 		const expect = chai.expect;
