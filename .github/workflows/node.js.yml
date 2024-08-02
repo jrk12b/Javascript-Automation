@@ -62,6 +62,17 @@ jobs:
         with:
           browser: chrome
 
+  cypress-run-chromes:
+    runs-on: ubuntu-latest
+    needs: [format-and-setup, jest-run, postman-run, k6-run]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Run Cypress tests in CHROME
+        uses: cypress-io/github-action@v6
+        with:
+          browser: chrome
+
   cypress-run-edge:
     runs-on: ubuntu-latest
     needs: [format-and-setup, jest-run, postman-run, k6-run]
@@ -74,16 +85,6 @@ jobs:
           browser: edge
 
   cypress-run-electron:
-    runs-on: ubuntu-latest
-    needs: [format-and-setup, jest-run, postman-run, k6-run]
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-      - name: Run Cypress tests in ELECTRON
-        uses: cypress-io/github-action@v6
-        with:
-          browser: electron
-  cypress-run-electron2:
     runs-on: ubuntu-latest
     needs: [format-and-setup, jest-run, postman-run, k6-run]
     steps:
