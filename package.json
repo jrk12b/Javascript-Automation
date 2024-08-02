@@ -17,7 +17,8 @@
 		"se:run": "mocha 'selenium tests/*/*.js'",
 		"format-check": "npx prettier --check .",
 		"format-write": "npx prettier --write .",
-		"k6:pipeline-browser-home": "k6 run 'k6/browser tests/homePagePerformance.js'"
+		"k6:pipeline-browser-home": "k6 run 'k6/browser tests/homePagePerformance.js'",
+		"k6:pipeline-browser-pictures": "k6 run 'k6/browser tests/picturesPagePerformance.js'"
 	},
 	"repository": {
 		"type": "git",
