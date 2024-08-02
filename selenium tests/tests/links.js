@@ -1,4 +1,5 @@
-const { setupDriver, teardownDriver, BASE_URL, TIMEOUT, By } = require('../seleniumSetup');
+const { testIds } = require('../helpers/selectors');
+const { setupDriver, teardownDriver, BASE_URL, TIMEOUT, By } = require('../helpers/seleniumSetup');
 
 describe('Links Tests', function () {
 	this.timeout(TIMEOUT);
@@ -18,31 +19,31 @@ describe('Links Tests', function () {
 	});
 
 	it('Validate all links are visible', async function () {
-		const linksHeader = await driver.findElement(By.className('text-center'));
+		const linksHeader = await driver.findElement(By.className(testIds.textCenterClass));
 		await linksHeader.isDisplayed();
 
-		const homeLink = await driver.findElement(By.id('simpleLink'));
+		const homeLink = await driver.findElement(By.id(testIds.simpleLinkId));
 		await homeLink.isDisplayed();
 
-		const dynamicLink = await driver.findElement(By.id('dynamicLink'));
+		const dynamicLink = await driver.findElement(By.id(testIds.dynamicLinkId));
 		await dynamicLink.isDisplayed();
 
-		const noContentLink = await driver.findElement(By.id('no-content'));
+		const noContentLink = await driver.findElement(By.id(testIds.noContentId));
 		await noContentLink.isDisplayed();
 
-		const movedLink = await driver.findElement(By.id('moved'));
+		const movedLink = await driver.findElement(By.id(testIds.movedId));
 		await movedLink.isDisplayed();
 
-		const badRequestLink = await driver.findElement(By.id('bad-request'));
+		const badRequestLink = await driver.findElement(By.id(testIds.badRequestId));
 		await badRequestLink.isDisplayed();
 
-		const unauthorizedLink = await driver.findElement(By.id('unauthorized'));
+		const unauthorizedLink = await driver.findElement(By.id(testIds.unauthorizedId));
 		await unauthorizedLink.isDisplayed();
 
-		const forbiddenLink = await driver.findElement(By.id('forbidden'));
+		const forbiddenLink = await driver.findElement(By.id(testIds.forbiddenId));
 		await forbiddenLink.isDisplayed();
 
-		const invalidLink = await driver.findElement(By.id('invalid-url'));
+		const invalidLink = await driver.findElement(By.id(testIds.invalidUrlId));
 		await invalidLink.isDisplayed();
 	});
 
@@ -50,7 +51,7 @@ describe('Links Tests', function () {
 		const chai = await import('chai');
 		const expect = chai.expect;
 
-		const homeLink = await driver.findElement(By.id('simpleLink'));
+		const homeLink = await driver.findElement(By.id(testIds.simpleLinkId));
 		const homeLinkHref = await homeLink.getAttribute('href');
 		expect(homeLinkHref).includes('https://demoqa.com');
 
@@ -70,7 +71,7 @@ describe('Links Tests', function () {
 		const chai = await import('chai');
 		const expect = chai.expect;
 
-		const homeLink = await driver.findElement(By.id('simpleLink'));
+		const homeLink = await driver.findElement(By.id(testIds.simpleLinkId));
 		const homeLinkHref = await homeLink.getAttribute('href');
 		expect(homeLinkHref).includes('https://demoqa.com');
 

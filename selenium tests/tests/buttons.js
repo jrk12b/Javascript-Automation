@@ -1,4 +1,5 @@
-const { setupDriver, teardownDriver, BASE_URL, TIMEOUT, By, Actions } = require('../seleniumSetup');
+const { setupDriver, teardownDriver, BASE_URL, TIMEOUT, By } = require('../helpers/seleniumSetup');
+const { testIds } = require('../helpers/selectors');
 
 describe('Button Tests', function () {
 	this.timeout(TIMEOUT);
@@ -18,14 +19,16 @@ describe('Button Tests', function () {
 	});
 
 	it('Validate Button elements are visible', async function () {
-		const doubleClickButton = await driver.findElement(By.id('doubleClickBtn'));
+		const doubleClickButton = await driver.findElement(By.id(testIds.doubleClickButtonId));
 		await doubleClickButton.isDisplayed();
 
-		const rightClickButtom = await driver.findElement(By.id('rightClickBtn'));
+		const rightClickButtom = await driver.findElement(By.id(testIds.rightClickButtonId));
 		await rightClickButtom.isDisplayed();
 
 		const clickButton = await driver.findElement(
-			By.xpath("//button[contains(@class, 'btn-primary') and contains(text(), 'Click Me')]")
+			By.xpath(
+				`//button[contains(@class, '${testIds.primaryButtonClass}') and contains(text(), 'Click Me')]`
+			)
 		);
 		await clickButton.isDisplayed();
 	});
@@ -33,14 +36,14 @@ describe('Button Tests', function () {
 	it('Validate Double Click Button', async function () {
 		await driver.sleep(4000);
 
-		const doubleClickButton = await driver.findElement(By.id('doubleClickBtn'));
+		const doubleClickButton = await driver.findElement(By.id(testIds.doubleClickButtonId));
 		await driver.executeScript('arguments[0].scrollIntoView(true);', doubleClickButton);
 		let actions = driver.actions({ async: true });
 		await actions.doubleClick(doubleClickButton).perform();
 
 		await driver.sleep(4000);
 
-		const doubleClickMessage = await driver.findElement(By.id('doubleClickMessage'));
+		const doubleClickMessage = await driver.findElement(By.id(testIds.doubleClickMessageId));
 		await doubleClickMessage.isDisplayed();
 	});
 
@@ -48,11 +51,13 @@ describe('Button Tests', function () {
 		const chai = await import('chai');
 		const expect = chai.expect;
 
-		const doubleClickButton = await driver.findElement(By.id('doubleClickBtn'));
+		const doubleClickButton = await driver.findElement(By.id(testIds.doubleClickButtonId));
 		await driver.executeScript('arguments[0].scrollIntoView(true);', doubleClickButton);
 		await doubleClickButton.click();
 
-		const doubleClickMessageNotVisible = await driver.findElements(By.id('doubleClickMessage'));
+		const doubleClickMessageNotVisible = await driver.findElements(
+			By.id(testIds.doubleClickMessageId)
+		);
 		expect(doubleClickMessageNotVisible.length).to.eq(0);
 	});
 
@@ -60,7 +65,7 @@ describe('Button Tests', function () {
 		const chai = await import('chai');
 		const expect = chai.expect;
 
-		const doubleClickButton = await driver.findElement(By.id('doubleClickBtn'));
+		const doubleClickButton = await driver.findElement(By.id(testIds.doubleClickButtonId));
 		let actions = driver.actions({ async: true });
 		await actions.contextClick(doubleClickButton).perform();
 
@@ -72,10 +77,12 @@ describe('Button Tests', function () {
 		const chai = await import('chai');
 		const expect = chai.expect;
 
-		const rightClickButton = await driver.findElement(By.id('rightClickBtn'));
+		const rightClickButton = await driver.findElement(By.id(testIds.rightClickButtonId));
 		await rightClickButton.click();
 
-		const rightClickMessageNotVisible = await driver.findElements(By.id('rightClickMessage'));
+		const rightClickMessageNotVisible = await driver.findElements(
+			By.id(testIds.rightClickMessageId)
+		);
 		expect(rightClickMessageNotVisible.length).to.eq(0);
 	});
 
@@ -83,11 +90,13 @@ describe('Button Tests', function () {
 		const chai = await import('chai');
 		const expect = chai.expect;
 
-		const rightClickButton = await driver.findElement(By.id('rightClickBtn'));
+		const rightClickButton = await driver.findElement(By.id(testIds.rightClickButtonId));
 		let actions = driver.actions({ async: true });
 		await actions.doubleClick(rightClickButton).perform();
 
-		const rightClickMessageNotVisible = await driver.findElements(By.id('rightClickMessage'));
+		const rightClickMessageNotVisible = await driver.findElements(
+			By.id(testIds.rightClickMessageId)
+		);
 		expect(rightClickMessageNotVisible.length).to.eq(0);
 	});
 
@@ -98,7 +107,7 @@ describe('Button Tests', function () {
 		await driver.executeScript('arguments[0].scrollIntoView(true);', clickButton);
 		await clickButton.click();
 
-		const clickbuttonMessage = await driver.findElement(By.id('dynamicClickMessage'));
+		const clickbuttonMessage = await driver.findElement(By.id(testIds.dynamicClickMessageId));
 		await clickbuttonMessage.isDisplayed();
 	});
 
@@ -107,12 +116,14 @@ describe('Button Tests', function () {
 		const expect = chai.expect;
 
 		const clickButton = await driver.findElement(
-			By.xpath("//button[contains(@class, 'btn-primary') and text()='Click Me']")
+			By.xpath(
+				`//button[contains(@class, '${testIds.primaryButtonClass}') and contains(text(), 'Click Me')]`
+			)
 		);
 		let actions = driver.actions({ async: true });
 		await actions.contextClick(clickButton).perform();
 
-		const clickbuttonMessage = await driver.findElements(By.id('dynamicClickMessage'));
+		const clickbuttonMessage = await driver.findElements(By.id(testIds.dynamicClickMessageId));
 		expect(clickbuttonMessage.length).to.eq(0);
 	});
 });

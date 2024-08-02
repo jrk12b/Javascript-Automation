@@ -1,4 +1,5 @@
-const { setupDriver, teardownDriver, BASE_URL, TIMEOUT, By } = require('../seleniumSetup');
+const { setupDriver, teardownDriver, BASE_URL, TIMEOUT, By } = require('../helpers/seleniumSetup');
+const { testIds } = require('../helpers/selectors');
 
 describe('Check Box Tests', function () {
 	this.timeout(TIMEOUT);
@@ -21,36 +22,36 @@ describe('Check Box Tests', function () {
 		const label = await driver.findElement(By.xpath("//h1[contains(text(), 'Check Box')]"));
 		await label.isDisplayed();
 
-		const menuToggle = await driver.findElement(By.className('rct-collapse-btn'));
+		const menuToggle = await driver.findElement(By.className(testIds.collapseButtonClass));
 		await menuToggle.isDisplayed();
 
-		const homeTitle = await driver.findElement(By.className('rct-title'));
+		const homeTitle = await driver.findElement(By.className(testIds.titleClass));
 		await homeTitle.isDisplayed();
 
-		const expandtoggle = await driver.findElement(By.className('rct-option-expand-all'));
+		const expandtoggle = await driver.findElement(By.className(testIds.expandAllClass));
 		await expandtoggle.isDisplayed();
 
-		const collapseToggle = await driver.findElement(By.className('rct-option-collapse-all'));
+		const collapseToggle = await driver.findElement(By.className(testIds.collapseAllClass));
 		await collapseToggle.isDisplayed();
 	});
 
 	it('Validate Expand All Toggle', async function () {
-		const expandtoggle = await driver.findElement(By.className('rct-option-expand-all'));
+		const expandtoggle = await driver.findElement(By.className(testIds.expandAllClass));
 		await driver.executeScript('arguments[0].scrollIntoView(true);', expandtoggle);
 		await expandtoggle.click();
 
-		const expandedTree = await driver.findElement(
-			By.css('.rct-node.rct-node-parent.rct-node-expanded')
-		);
+		const expandedTree = await driver.findElement(By.css(testIds.nodeExpandedClasses));
 		await expandedTree.isDisplayed();
 
 		const desktopTree = await driver.findElement(
-			By.xpath("//span[contains(@class, 'rct-title') and contains(text(), 'Desktop')]")
+			By.xpath(`//span[contains(@class, '${testIds.titleClass}') and contains(text(), 'Desktop')]`)
 		);
 		await desktopTree.isDisplayed();
 
 		const documentTree = await driver.findElement(
-			By.xpath("//span[contains(@class, 'rct-title') and contains(text(), 'Documents')]")
+			By.xpath(
+				`//span[contains(@class, '${testIds.titleClass}') and contains(text(), 'Documents')]`
+			)
 		);
 		await documentTree.isDisplayed();
 	});
@@ -59,34 +60,36 @@ describe('Check Box Tests', function () {
 		const chai = await import('chai');
 		const expect = chai.expect;
 
-		const expandtoggle = await driver.findElement(By.className('rct-option-expand-all'));
+		const expandtoggle = await driver.findElement(By.className(testIds.expandAllClass));
 		await driver.executeScript('arguments[0].scrollIntoView(true);', expandtoggle);
 		await expandtoggle.click();
 
-		const expandedTree = await driver.findElement(
-			By.css('.rct-node.rct-node-parent.rct-node-expanded')
-		);
+		const expandedTree = await driver.findElement(By.css(testIds.nodeExpandedClasses));
 		await expandedTree.isDisplayed();
 
 		const desktopTree = await driver.findElement(
-			By.xpath("//span[contains(@class, 'rct-title') and contains(text(), 'Desktop')]")
+			By.xpath(`//span[contains(@class, '${testIds.titleClass}') and contains(text(), 'Desktop')]`)
 		);
 		await desktopTree.isDisplayed();
 
 		const documentTree = await driver.findElement(
-			By.xpath("//span[contains(@class, 'rct-title') and contains(text(), 'Documents')]")
+			By.xpath(
+				`//span[contains(@class, '${testIds.titleClass}') and contains(text(), 'Documents')]`
+			)
 		);
 		await documentTree.isDisplayed();
 
-		const collapseToggle = await driver.findElement(By.className('rct-icon-collapse-all'));
+		const collapseToggle = await driver.findElement(By.className(testIds.collapseAllClass));
 		await driver.executeScript('arguments[0].scrollIntoView(true);', collapseToggle);
 		await collapseToggle.click();
 
 		const desktopTreeNotVisible = await driver.findElements(
-			By.xpath("//span[contains(@class, 'rct-title') and contains(text(), 'Desktop')]")
+			By.xpath(`//span[contains(@class, '${testIds.titleClass}') and contains(text(), 'Desktop')]`)
 		);
 		const documentsTreeNotVisible = await driver.findElements(
-			By.xpath("//span[contains(@class, 'rct-title') and contains(text(), 'Documents')]")
+			By.xpath(
+				`//span[contains(@class, '${testIds.titleClass}') and contains(text(), 'Documents')]`
+			)
 		);
 		expect(desktopTreeNotVisible.length).to.eq(0);
 		expect(documentsTreeNotVisible.length).to.eq(0);
@@ -96,18 +99,18 @@ describe('Check Box Tests', function () {
 		const chai = await import('chai');
 		const expect = chai.expect;
 
-		const expandtoggle = await driver.findElement(By.className('rct-option-expand-all'));
+		const expandtoggle = await driver.findElement(By.className(testIds.expandAllClass));
 		await driver.executeScript('arguments[0].scrollIntoView(true);', expandtoggle);
 		await expandtoggle.click();
 
 		const notesFileTree = await driver.findElement(By.css('label[for="tree-node-notes"]'));
-		const notesCheckbox = await notesFileTree.findElement(By.className('rct-checkbox'));
+		const notesCheckbox = await notesFileTree.findElement(By.className(testIds.rctCheckboxClass));
 		await notesCheckbox.click();
 
-		const result = await driver.findElement(By.id('result'));
+		const result = await driver.findElement(By.id(testIds.resultId));
 		await result.isDisplayed();
 
-		const textSuccess = await driver.findElement(By.className('text-success'));
+		const textSuccess = await driver.findElement(By.className(testIds.textSuccessClass));
 		await textSuccess.isDisplayed();
 
 		const textContent = await textSuccess.getText();
@@ -118,15 +121,17 @@ describe('Check Box Tests', function () {
 		const chai = await import('chai');
 		const expect = chai.expect;
 
-		const expandtoggle = await driver.findElement(By.className('rct-option-expand-all'));
+		const expandtoggle = await driver.findElement(By.className(testIds.expandAllClass));
 		await driver.executeScript('arguments[0].scrollIntoView(true);', expandtoggle);
 		await expandtoggle.click();
 
 		const desktopFileTree = await driver.findElement(By.css('label[for="tree-node-desktop"]'));
-		const desktopCheckbox = await desktopFileTree.findElement(By.className('rct-checkbox'));
+		const desktopCheckbox = await desktopFileTree.findElement(
+			By.className(testIds.rctCheckboxClass)
+		);
 		await desktopCheckbox.click();
 
-		const result = await driver.findElement(By.id('result'));
+		const result = await driver.findElement(By.id(testIds.resultId));
 		await result.isDisplayed();
 		const textContent = await result.getText();
 
@@ -137,11 +142,11 @@ describe('Check Box Tests', function () {
 		const chai = await import('chai');
 		const expect = chai.expect;
 
-		const homeElement = await driver.findElement(By.css('.rct-icon.rct-icon-uncheck'));
+		const homeElement = await driver.findElement(By.css(testIds.uncheckIconClasses));
 		await driver.executeScript('arguments[0].scrollIntoView(true);', homeElement);
 		await homeElement.click();
 
-		const result = await driver.findElement(By.id('result'));
+		const result = await driver.findElement(By.id(testIds.resultId));
 		await result.isDisplayed();
 		const textContent = await result.getText();
 

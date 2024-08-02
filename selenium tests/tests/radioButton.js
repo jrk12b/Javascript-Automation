@@ -1,4 +1,5 @@
-const { setupDriver, teardownDriver, BASE_URL, TIMEOUT, By } = require('../seleniumSetup');
+const { setupDriver, teardownDriver, BASE_URL, TIMEOUT, By } = require('../helpers/seleniumSetup');
+const { testIds } = require('../helpers/selectors');
 
 describe('Radio button Tests', function () {
 	this.timeout(TIMEOUT);
@@ -20,13 +21,13 @@ describe('Radio button Tests', function () {
 	it('Validate Radio button Fields are visible', async function () {
 		const chai = await import('chai');
 		const expect = chai.expect;
-		const yesRadio = await driver.findElement(By.id('yesRadio'));
+		const yesRadio = await driver.findElement(By.id(testIds.yesRadioId));
 		await yesRadio.isDisplayed();
 
-		const impressiveRadio = await driver.findElement(By.id('impressiveRadio'));
+		const impressiveRadio = await driver.findElement(By.id(testIds.impressiveRadioId));
 		await impressiveRadio.isDisplayed();
 
-		const noRadio = await driver.findElement(By.id('noRadio'));
+		const noRadio = await driver.findElement(By.id(testIds.noRadioId));
 		await noRadio.isDisplayed();
 
 		let classAttribute = await noRadio.getAttribute('class');
@@ -43,7 +44,7 @@ describe('Radio button Tests', function () {
 
 		await driver.sleep(3000);
 
-		const textSuccess = await driver.findElement(By.className('text-success'));
+		const textSuccess = await driver.findElement(By.className(testIds.textSuccessClass));
 		await driver.executeScript('arguments[0].scrollIntoView(true);', textSuccess);
 		await textSuccess.isDisplayed();
 		const textContent = await textSuccess.getText();
@@ -54,13 +55,15 @@ describe('Radio button Tests', function () {
 		const chai = await import('chai');
 		const expect = chai.expect;
 
-		const impressiveRadio = await driver.findElement(By.css('label[for="impressiveRadio"]'));
+		const impressiveRadio = await driver.findElement(
+			By.css(`label[for="${testIds.impressiveRadioId}"]`)
+		);
 		await driver.executeScript('arguments[0].scrollIntoView(true);', impressiveRadio);
 		await impressiveRadio.click();
 
 		await driver.sleep(3000);
 
-		const textSuccess = await driver.findElement(By.className('text-success'));
+		const textSuccess = await driver.findElement(By.className(testIds.textSuccessClass));
 		await driver.executeScript('arguments[0].scrollIntoView(true);', textSuccess);
 		await textSuccess.isDisplayed();
 		const textContent = await textSuccess.getText();

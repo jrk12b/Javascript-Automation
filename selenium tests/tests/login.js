@@ -1,4 +1,5 @@
-const { setupDriver, teardownDriver, BASE_URL, TIMEOUT, By, Actions } = require('../seleniumSetup');
+const { setupDriver, teardownDriver, BASE_URL, TIMEOUT, By } = require('../helpers/seleniumSetup');
+const { testIds } = require('../helpers/selectors');
 
 describe('Login Tests', function () {
 	this.timeout(TIMEOUT);
@@ -24,10 +25,10 @@ describe('Login Tests', function () {
 		const loginHeader = await driver.findElement(By.xpath('//h5[text()="Login in Book Store"]'));
 		await loginHeader.isDisplayed();
 
-		const loginButton = await driver.findElement(By.id('login'));
+		const loginButton = await driver.findElement(By.id(testIds.loginId));
 		await loginButton.isDisplayed();
 
-		const newUser = await driver.findElement(By.id('newUser'));
+		const newUser = await driver.findElement(By.id(testIds.newUserId));
 		await newUser.isDisplayed();
 	});
 
@@ -35,7 +36,7 @@ describe('Login Tests', function () {
 		const chai = await import('chai');
 		const expect = chai.expect;
 
-		const newUser = await driver.findElement(By.id('newUser'));
+		const newUser = await driver.findElement(By.id(testIds.newUserId));
 		await driver.executeScript('arguments[0].scrollIntoView(true);', newUser);
 		await newUser.click();
 
@@ -51,11 +52,11 @@ describe('Login Tests', function () {
 		const chai = await import('chai');
 		const expect = chai.expect;
 
-		const newUser = await driver.findElement(By.id('newUser'));
+		const newUser = await driver.findElement(By.id(testIds.newUserId));
 		await driver.executeScript('arguments[0].scrollIntoView(true);', newUser);
 		await newUser.click();
 
-		const registerHeader = await driver.findElement(By.className('text-center'));
+		const registerHeader = await driver.findElement(By.className(testIds.textCenterClass));
 		await registerHeader.isDisplayed();
 
 		const welcomeHeader = await driver.findElement(
@@ -63,23 +64,23 @@ describe('Login Tests', function () {
 		);
 		await welcomeHeader.isDisplayed();
 
-		const firstName = await driver.findElement(By.id('firstname'));
+		const firstName = await driver.findElement(By.id(testIds.firstnameId));
 		await firstName.sendKeys('firstTest');
 
-		const lastName = await driver.findElement(By.id('lastname'));
+		const lastName = await driver.findElement(By.id(testIds.lastNameId));
 		await lastName.sendKeys('lastTest');
 
-		const userName = await driver.findElement(By.id('userName'));
+		const userName = await driver.findElement(By.id(testIds.userNameId));
 		await userName.sendKeys('userTest');
 
-		const password = await driver.findElement(By.id('password'));
+		const password = await driver.findElement(By.id(testIds.passwordId));
 		await password.sendKeys('userPassword');
 
-		const register = await driver.findElement(By.id('register'));
+		const register = await driver.findElement(By.id(testIds.registerId));
 		await driver.executeScript('arguments[0].scrollIntoView(true);', register);
 		await register.click();
 
-		const error = await driver.findElement(By.id('name'));
+		const error = await driver.findElement(By.id(testIds.nameId));
 		const errorText = await error.getText();
 		expect(errorText).to.eq('Please verify reCaptcha to register!');
 	});

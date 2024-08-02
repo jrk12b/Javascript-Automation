@@ -1,4 +1,5 @@
-const { setupDriver, teardownDriver, BASE_URL, TIMEOUT, By } = require('../seleniumSetup');
+const { setupDriver, teardownDriver, BASE_URL, TIMEOUT, By } = require('../helpers/seleniumSetup');
+const { testIds } = require('../helpers/selectors');
 
 describe('Web Tables Tests', function () {
 	this.timeout(TIMEOUT);
@@ -18,53 +19,53 @@ describe('Web Tables Tests', function () {
 	});
 
 	it('Validate web table Fields are visible', async function () {
-		const webTablesWrapper = await driver.findElement(By.className('web-tables-wrapper'));
+		const webTablesWrapper = await driver.findElement(By.className(testIds.webTablesWrapperClass));
 		await webTablesWrapper.isDisplayed();
 
-		const addButton = await driver.findElement(By.id('addNewRecordButton'));
+		const addButton = await driver.findElement(By.id(testIds.addNewRecordButtonId));
 		await addButton.isDisplayed();
 
-		const searchBox = await driver.findElement(By.id('searchBox'));
+		const searchBox = await driver.findElement(By.id(testIds.searchBoxId));
 		await searchBox.isDisplayed();
 
-		const table = await driver.findElement(By.className('ReactTable'));
+		const table = await driver.findElement(By.className(testIds.reactTableClass));
 		await table.isDisplayed();
 
-		const editItem = await driver.findElement(By.id('edit-record-1'));
+		const editItem = await driver.findElement(By.id(testIds.editRecord1Class));
 		await editItem.isDisplayed();
 
-		const deleteItem = await driver.findElement(By.id('delete-record-1'));
+		const deleteItem = await driver.findElement(By.id(testIds.deleteRecord1Class));
 		await deleteItem.isDisplayed();
 	});
 
 	it('Validate adding an entry to the table', async function () {
-		const addButton = await driver.findElement(By.id('addNewRecordButton'));
+		const addButton = await driver.findElement(By.id(testIds.addNewRecordButtonId));
 		await driver.executeScript('arguments[0].scrollIntoView(true);', addButton);
 
 		await addButton.click();
 
-		const addFrom = await driver.findElement(By.className('modal-content'));
+		const addFrom = await driver.findElement(By.className(testIds.modalContentClass));
 		await addFrom.isDisplayed();
 
-		const firstName = await driver.findElement(By.id('firstName'));
+		const firstName = await driver.findElement(By.id(testIds.firstNameId));
 		await firstName.sendKeys('JustinTest');
 
-		const lastName = await driver.findElement(By.id('lastName'));
+		const lastName = await driver.findElement(By.id(testIds.lastNameId));
 		await lastName.sendKeys('LastTest');
 
-		const userEmail = await driver.findElement(By.id('userEmail'));
+		const userEmail = await driver.findElement(By.id(testIds.userEmailId));
 		await userEmail.sendKeys('email@test.com');
 
-		const age = await driver.findElement(By.id('age'));
+		const age = await driver.findElement(By.id(testIds.ageId));
 		await age.sendKeys('30');
 
-		const salary = await driver.findElement(By.id('salary'));
+		const salary = await driver.findElement(By.id(testIds.salaryId));
 		await salary.sendKeys('100');
 
-		const department = await driver.findElement(By.id('department'));
+		const department = await driver.findElement(By.id(testIds.departmentId));
 		await department.sendKeys('Test Department');
 
-		const submit = await driver.findElement(By.id('submit'));
+		const submit = await driver.findElement(By.id(testIds.submitId));
 		await submit.click();
 
 		const firstNameResult = await driver.findElement(
@@ -95,35 +96,35 @@ describe('Web Tables Tests', function () {
 	});
 
 	it('Validate editing an entry in the table', async function () {
-		const editItem = await driver.findElement(By.id('edit-record-1'));
+		const editItem = await driver.findElement(By.id(testIds.editRecord1Class));
 		await driver.executeScript('arguments[0].scrollIntoView(true);', editItem);
 		await editItem.click();
 
-		const firstName = await driver.findElement(By.id('firstName'));
+		const firstName = await driver.findElement(By.id(testIds.firstNameId));
 		await firstName.clear();
 		await firstName.sendKeys('UpdatedFirst');
 
-		const lastName = await driver.findElement(By.id('lastName'));
+		const lastName = await driver.findElement(By.id(testIds.lastNameId));
 		await lastName.clear();
 		await lastName.sendKeys('UpdatedLast');
 
-		const userEmail = await driver.findElement(By.id('userEmail'));
+		const userEmail = await driver.findElement(By.id(testIds.userEmailId));
 		await userEmail.clear();
 		await userEmail.sendKeys('updated@test.com');
 
-		const age = await driver.findElement(By.id('age'));
+		const age = await driver.findElement(By.id(testIds.ageId));
 		await age.clear();
 		await age.sendKeys('31');
 
-		const salary = await driver.findElement(By.id('salary'));
+		const salary = await driver.findElement(By.id(testIds.salaryId));
 		await salary.clear();
 		await salary.sendKeys('101');
 
-		const department = await driver.findElement(By.id('department'));
+		const department = await driver.findElement(By.id(testIds.departmentId));
 		await department.clear();
 		await department.sendKeys('Updated Department');
 
-		const submit = await driver.findElement(By.id('submit'));
+		const submit = await driver.findElement(By.id(testIds.submitId));
 		await driver.executeScript('arguments[0].scrollIntoView(true);', submit);
 		await submit.click();
 
@@ -158,7 +159,7 @@ describe('Web Tables Tests', function () {
 		const chai = await import('chai');
 		const expect = chai.expect;
 
-		const deleteItem = await driver.findElement(By.id('delete-record-1'));
+		const deleteItem = await driver.findElement(By.id(testIds.deleteRecord1Class));
 		await deleteItem.click();
 
 		const firstNameDeleted = await driver.findElements(
@@ -190,7 +191,7 @@ describe('Web Tables Tests', function () {
 		const chai = await import('chai');
 		const expect = chai.expect;
 
-		const searchBox = await driver.findElement(By.id('searchBox'));
+		const searchBox = await driver.findElement(By.id(testIds.searchBoxId));
 		await searchBox.sendKeys('Cierra');
 
 		const firstNameResult = await driver.findElement(By.xpath("//div[contains(text(), 'Cierra')]"));
@@ -248,17 +249,17 @@ describe('Web Tables Tests', function () {
 
 		const firstNameSort = await driver.findElement(
 			By.xpath(
-				"//div[contains(@class, 'rt-resizable-header-content') and contains(text(), 'First Name')]"
+				`//div[contains(@class, ${testIds.resizableHeadercontentClass}) and contains(text(), 'First Name')]`
 			)
 		);
 		await driver.executeScript('arguments[0].scrollIntoView(true);', firstNameSort);
 		await firstNameSort.click();
 
-		const firstNameColumn = await driver.findElement(By.className('-sort-asc'));
+		const firstNameColumn = await driver.findElement(By.className(testIds.sortAscClass));
 		const firstNameColumnClass = await firstNameColumn.getAttribute('class');
-		expect(firstNameColumnClass).includes('-sort-asc');
+		expect(firstNameColumnClass).includes(testIds.sortAscClass);
 
-		const dataTable = await driver.findElement(By.className('rt-tr -odd'));
+		const dataTable = await driver.findElement(By.className(testIds.oddClasses));
 		const firstEntry = await dataTable.findElement(By.css('div:first-child'));
 		const firstNameText = await firstEntry.getText();
 		expect(firstNameText).to.eq('Alden');
@@ -266,9 +267,9 @@ describe('Web Tables Tests', function () {
 		await driver.executeScript('arguments[0].scrollIntoView(true);', firstNameSort);
 		await firstNameSort.click();
 
-		const firstNameColumnDesc = await driver.findElement(By.className('-sort-desc'));
+		const firstNameColumnDesc = await driver.findElement(By.className(testIds.sortDescClass));
 		const firstNameColumnClassDesc = await firstNameColumnDesc.getAttribute('class');
-		expect(firstNameColumnClassDesc).includes('-sort-desc');
+		expect(firstNameColumnClassDesc).includes(testIds.sortDescClass);
 
 		const firstEntryDesc = await dataTable.findElement(By.css('div:first-child'));
 		const firstNameTextDesc = await firstEntryDesc.getText();
@@ -281,25 +282,25 @@ describe('Web Tables Tests', function () {
 
 		const lastNameSort = await driver.findElement(
 			By.xpath(
-				"//div[contains(@class, 'rt-resizable-header-content') and contains(text(), 'Last Name')]"
+				`//div[contains(@class, ${testIds.resizableHeadercontentClass}) and contains(text(), 'Last Name')]`
 			)
 		);
 		await lastNameSort.click();
 
-		const lastNameColumn = await driver.findElement(By.className('-sort-asc'));
+		const lastNameColumn = await driver.findElement(By.className(testIds.sortAscClass));
 		const lastNameColumnClass = await lastNameColumn.getAttribute('class');
-		expect(lastNameColumnClass).includes('-sort-asc');
+		expect(lastNameColumnClass).includes(testIds.sortAscClass);
 
-		const dataTable = await driver.findElement(By.className('rt-tr -odd'));
+		const dataTable = await driver.findElement(By.className(testIds.oddClasses));
 		const firstEntry = await dataTable.findElement(By.css('div:nth-of-type(2)'));
 		const lastNameText = await firstEntry.getText();
 		expect(lastNameText).to.eq('Cantrell');
 
 		await lastNameSort.click();
 
-		const lastNameColumnDesc = await driver.findElement(By.className('-sort-desc'));
+		const lastNameColumnDesc = await driver.findElement(By.className(testIds.sortDescClass));
 		const lastNameColumnClassDesc = await lastNameColumnDesc.getAttribute('class');
-		expect(lastNameColumnClassDesc).includes('-sort-desc');
+		expect(lastNameColumnClassDesc).includes(testIds.sortDescClass);
 
 		const firstEntryDesc = await dataTable.findElement(By.css('div:nth-of-type(2)'));
 		const lastNameTextDesc = await firstEntryDesc.getText();
@@ -315,20 +316,20 @@ describe('Web Tables Tests', function () {
 		);
 		await ageSort.click();
 
-		const ageColumn = await driver.findElement(By.className('-sort-asc'));
+		const ageColumn = await driver.findElement(By.className(testIds.sortAscClass));
 		const ageColumnClass = await ageColumn.getAttribute('class');
-		expect(ageColumnClass).includes('-sort-asc');
+		expect(ageColumnClass).includes(testIds.sortAscClass);
 
-		const dataTable = await driver.findElement(By.className('rt-tr -odd'));
+		const dataTable = await driver.findElement(By.className(testIds.oddClasses));
 		const firstEntry = await dataTable.findElement(By.css('div:nth-of-type(3)'));
 		const ageText = await firstEntry.getText();
 		expect(ageText).to.eq('29');
 
 		await ageSort.click();
 
-		const ageColumnDesc = await driver.findElement(By.className('-sort-desc'));
+		const ageColumnDesc = await driver.findElement(By.className(testIds.sortDescClass));
 		const ageColumnClassDesc = await ageColumnDesc.getAttribute('class');
-		expect(ageColumnClassDesc).includes('-sort-desc');
+		expect(ageColumnClassDesc).includes(testIds.sortDescClass);
 
 		const firstEntryDesc = await dataTable.findElement(By.css('div:nth-of-type(3)'));
 		const ageTextDesc = await firstEntryDesc.getText();
@@ -341,25 +342,25 @@ describe('Web Tables Tests', function () {
 
 		const emailSort = await driver.findElement(
 			By.xpath(
-				"//div[contains(@class, 'rt-resizable-header-content') and contains(text(), 'Email')]"
+				`//div[contains(@class, ${testIds.resizableHeadercontentClass}) and contains(text(), 'Email')]`
 			)
 		);
 		await emailSort.click();
 
-		const emailColumn = await driver.findElement(By.className('-sort-asc'));
+		const emailColumn = await driver.findElement(By.className(testIds.sortAscClass));
 		const emailColumnClass = await emailColumn.getAttribute('class');
-		expect(emailColumnClass).includes('-sort-asc');
+		expect(emailColumnClass).includes(testIds.sortAscClass);
 
-		const dataTable = await driver.findElement(By.className('rt-tr -odd'));
+		const dataTable = await driver.findElement(By.className(testIds.oddClasses));
 		const firstEntry = await dataTable.findElement(By.css('div:nth-of-type(4)'));
 		const emailText = await firstEntry.getText();
 		expect(emailText).to.eq('alden@example.com');
 
 		await emailSort.click();
 
-		const emailColumnDesc = await driver.findElement(By.className('-sort-desc'));
+		const emailColumnDesc = await driver.findElement(By.className(testIds.sortDescClass));
 		const emailColumnClassDesc = await emailColumnDesc.getAttribute('class');
-		expect(emailColumnClassDesc).includes('-sort-desc');
+		expect(emailColumnClassDesc).includes(testIds.sortDescClass);
 
 		const firstEntryDesc = await dataTable.findElement(By.css('div:nth-of-type(4)'));
 		const emailTextDesc = await firstEntryDesc.getText();
@@ -372,25 +373,25 @@ describe('Web Tables Tests', function () {
 
 		const salarySort = await driver.findElement(
 			By.xpath(
-				"//div[contains(@class, 'rt-resizable-header-content') and contains(text(), 'Salary')]"
+				`//div[contains(@class, ${testIds.resizableHeadercontentClass}) and contains(text(), 'Salary')]`
 			)
 		);
 		await salarySort.click();
 
-		const salaryColumn = await driver.findElement(By.className('-sort-asc'));
+		const salaryColumn = await driver.findElement(By.className(testIds.sortAscClass));
 		const salaryColumnClass = await salaryColumn.getAttribute('class');
-		expect(salaryColumnClass).includes('-sort-asc');
+		expect(salaryColumnClass).includes(testIds.sortAscClass);
 
-		const dataTable = await driver.findElement(By.className('rt-tr -odd'));
+		const dataTable = await driver.findElement(By.className(testIds.oddClasses));
 		const firstEntry = await dataTable.findElement(By.css('div:nth-of-type(5)'));
 		const salaryText = await firstEntry.getText();
 		expect(salaryText).to.eq('2000');
 
 		await salarySort.click();
 
-		const salaryColumnDesc = await driver.findElement(By.className('-sort-desc'));
+		const salaryColumnDesc = await driver.findElement(By.className(testIds.sortDescClass));
 		const salaryColumnClassDesc = await salaryColumnDesc.getAttribute('class');
-		expect(salaryColumnClassDesc).includes('-sort-desc');
+		expect(salaryColumnClassDesc).includes(testIds.sortDescClass);
 
 		const firstEntryDesc = await dataTable.findElement(By.css('div:nth-of-type(5)'));
 		const salaryTextDesc = await firstEntryDesc.getText();
@@ -403,25 +404,25 @@ describe('Web Tables Tests', function () {
 
 		const departmentSort = await driver.findElement(
 			By.xpath(
-				"//div[contains(@class, 'rt-resizable-header-content') and contains(text(), 'Department')]"
+				`//div[contains(@class, ${testIds.resizableHeadercontentClass}) and contains(text(), 'Department')]`
 			)
 		);
 		await departmentSort.click();
 
-		const departmentColumn = await driver.findElement(By.className('-sort-asc'));
+		const departmentColumn = await driver.findElement(By.className(testIds.sortAscClass));
 		const departmentColumnClass = await departmentColumn.getAttribute('class');
-		expect(departmentColumnClass).includes('-sort-asc');
+		expect(departmentColumnClass).includes(testIds.sortAscClass);
 
-		const dataTable = await driver.findElement(By.className('rt-tr -odd'));
+		const dataTable = await driver.findElement(By.className(testIds.oddClasses));
 		const firstEntry = await dataTable.findElement(By.css('div:nth-of-type(6)'));
 		const departmentText = await firstEntry.getText();
 		expect(departmentText).to.eq('Compliance');
 
 		await departmentSort.click();
 
-		const departmentColumnDesc = await driver.findElement(By.className('-sort-desc'));
+		const departmentColumnDesc = await driver.findElement(By.className(testIds.sortDescClass));
 		const departmentColumnClassDesc = await departmentColumnDesc.getAttribute('class');
-		expect(departmentColumnClassDesc).includes('-sort-desc');
+		expect(departmentColumnClassDesc).includes(testIds.sortDescClass);
 
 		const firstEntryDesc = await dataTable.findElement(By.css('div:nth-of-type(6)'));
 		const departmentTextDesc = await firstEntryDesc.getText();

@@ -1,4 +1,5 @@
-const { setupDriver, teardownDriver, BASE_URL, TIMEOUT, By } = require('../seleniumSetup');
+const { setupDriver, teardownDriver, BASE_URL, TIMEOUT, By } = require('../helpers/seleniumSetup');
+const { testIds } = require('../helpers/selectors');
 
 describe('Text Box Tests', function () {
 	this.timeout(TIMEOUT);
@@ -18,10 +19,15 @@ describe('Text Box Tests', function () {
 	});
 
 	it('Validate Text Box Fields are visible', async function () {
-		const userForm = await driver.findElement(By.id('userForm'));
+		const userForm = await driver.findElement(By.id(testIds.userFormId));
 		await userForm.isDisplayed();
 
-		const elements = ['userName', 'userEmail', 'currentAddress', 'permanentAddress'];
+		const elements = [
+			testIds.userNameId,
+			testIds.userEmailId,
+			testIds.currentAddressId,
+			testIds.permanentAddressId,
+		];
 		for (const element of elements) {
 			let label = await driver.findElement(By.id(`${element}-label`));
 			await label.isDisplayed();
@@ -30,7 +36,7 @@ describe('Text Box Tests', function () {
 			await field.isDisplayed();
 		}
 
-		const submitButton = await driver.findElement(By.id('submit'));
+		const submitButton = await driver.findElement(By.id(testIds.submitId));
 		await submitButton.isDisplayed();
 	});
 
@@ -38,17 +44,17 @@ describe('Text Box Tests', function () {
 		const chai = await import('chai');
 		const expect = chai.expect;
 
-		const userName = await driver.findElement(By.id('userName'));
+		const userName = await driver.findElement(By.id(testIds.userNameId));
 		await userName.sendKeys('JustinTest');
 
-		const submitButton = await driver.findElement(By.id('submit'));
+		const submitButton = await driver.findElement(By.id(testIds.submitId));
 		await driver.executeScript('arguments[0].scrollIntoView(true);', submitButton);
 		await submitButton.click();
 
-		const output = await driver.findElement(By.id('output'));
+		const output = await driver.findElement(By.id(testIds.outputId));
 		await driver.executeScript('arguments[0].scrollIntoView(true);', output);
 
-		const outputName = await output.findElement(By.id('name'));
+		const outputName = await output.findElement(By.id(testIds.nameId));
 		await outputName.isDisplayed();
 		const outputText = await outputName.getText();
 
@@ -59,17 +65,17 @@ describe('Text Box Tests', function () {
 		const chai = await import('chai');
 		const expect = chai.expect;
 
-		const userEmail = await driver.findElement(By.id('userEmail'));
+		const userEmail = await driver.findElement(By.id(testIds.userEmailId));
 		await userEmail.sendKeys('justin@test.com');
 
-		const submitButton = await driver.findElement(By.id('submit'));
+		const submitButton = await driver.findElement(By.id(testIds.submitId));
 		await driver.executeScript('arguments[0].scrollIntoView(true);', submitButton);
 		await submitButton.click();
 
-		const output = await driver.findElement(By.id('output'));
+		const output = await driver.findElement(By.id(testIds.outputId));
 		await driver.executeScript('arguments[0].scrollIntoView(true);', output);
 
-		const outputName = await output.findElement(By.id('email'));
+		const outputName = await output.findElement(By.id(testIds.emailId));
 		await outputName.isDisplayed();
 		const outputText = await outputName.getText();
 
@@ -80,17 +86,17 @@ describe('Text Box Tests', function () {
 		const chai = await import('chai');
 		const expect = chai.expect;
 
-		const currentAddress = await driver.findElement(By.id('currentAddress'));
+		const currentAddress = await driver.findElement(By.id(testIds.currentAddressId));
 		await currentAddress.sendKeys('123 Current Drive');
 
-		const submitButton = await driver.findElement(By.id('submit'));
+		const submitButton = await driver.findElement(By.id(testIds.submitId));
 		await driver.executeScript('arguments[0].scrollIntoView(true);', submitButton);
 		await submitButton.click();
 
 		const output = await driver.findElement(By.id('output'));
 		await driver.executeScript('arguments[0].scrollIntoView(true);', output);
 
-		const outputName = await output.findElement(By.id('currentAddress'));
+		const outputName = await output.findElement(By.id(testIds.currentAddressId));
 		await outputName.isDisplayed();
 		const outputText = await outputName.getText();
 
@@ -101,17 +107,17 @@ describe('Text Box Tests', function () {
 		const chai = await import('chai');
 		const expect = chai.expect;
 
-		const permanentAddress = await driver.findElement(By.id('permanentAddress'));
+		const permanentAddress = await driver.findElement(By.id(testIds.permanentAddressId));
 		await permanentAddress.sendKeys('123 Permanent Drive');
 
-		const submitButton = await driver.findElement(By.id('submit'));
+		const submitButton = await driver.findElement(By.id(testIds.submitId));
 		await driver.executeScript('arguments[0].scrollIntoView(true);', submitButton);
 		await submitButton.click();
 
-		const output = await driver.findElement(By.id('output'));
+		const output = await driver.findElement(By.id(testIds.outputId));
 		await driver.executeScript('arguments[0].scrollIntoView(true);', output);
 
-		const outputName = await output.findElement(By.id('permanentAddress'));
+		const outputName = await output.findElement(By.id(testIds.permanentAddressId));
 		await outputName.isDisplayed();
 		const outputText = await outputName.getText();
 
