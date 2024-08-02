@@ -32,7 +32,7 @@
 		"@cypress-audit/lighthouse": "^1.4.2",
 		"chai": "^5.1.1",
 		"chromedriver": "^126.0.5",
-		"cypress": "^12.17.4",
+		"cypress": "^13.13.2",
 		"cypress-audit": "^1.1.0",
 		"cypress-time-marks": "^1.6.0",
 		"geckodriver": "^4.4.2",
