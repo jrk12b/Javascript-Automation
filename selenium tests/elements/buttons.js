@@ -95,6 +95,7 @@ describe('Button Tests', function () {
 		const clickButton = await driver.findElement(
 			By.xpath("//button[contains(@class, 'btn-primary') and text()='Click Me']")
 		);
+		await driver.executeScript('arguments[0].scrollIntoView(true);', clickButton);
 		await clickButton.click();
 
 		const clickbuttonMessage = await driver.findElement(By.id('dynamicClickMessage'));

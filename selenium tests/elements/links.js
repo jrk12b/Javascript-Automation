@@ -62,6 +62,8 @@ describe('Links Tests', function () {
 
 		const currentUrl = await driver.getCurrentUrl();
 		expect(currentUrl).to.eq('https://demoqa.com/');
+
+		await driver.switchTo().window(tabs[0]);
 	});
 
 	it('Validate dynamic link ', async function () {

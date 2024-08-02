@@ -96,6 +96,7 @@ describe('Web Tables Tests', function () {
 
 	it('Validate editing an entry in the table', async function () {
 		const editItem = await driver.findElement(By.id('edit-record-1'));
+		await driver.executeScript('arguments[0].scrollIntoView(true);', editItem);
 		await editItem.click();
 
 		const firstName = await driver.findElement(By.id('firstName'));
@@ -123,6 +124,7 @@ describe('Web Tables Tests', function () {
 		await department.sendKeys('Updated Department');
 
 		const submit = await driver.findElement(By.id('submit'));
+		await driver.executeScript('arguments[0].scrollIntoView(true);', submit);
 		await submit.click();
 
 		const firstNameUpdated = await driver.findElement(
