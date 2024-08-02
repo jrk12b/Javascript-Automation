@@ -67,7 +67,7 @@ describe('Login Tests', function () {
 		const firstName = await driver.findElement(By.id(testIds.firstnameId));
 		await firstName.sendKeys('firstTest');
 
-		const lastName = await driver.findElement(By.id(testIds.lastNameId));
+		const lastName = await driver.findElement(By.id(testIds.lastnameId));
 		await lastName.sendKeys('lastTest');
 
 		const userName = await driver.findElement(By.id(testIds.userNameId));
