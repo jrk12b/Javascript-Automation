@@ -2,7 +2,6 @@ const { Builder, By } = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
 const firefox = require('selenium-webdriver/firefox');
 require('chromedriver');
-require('geckodriver');
 
 // Constants
 const BASE_URL = 'https://demoqa.com/';
