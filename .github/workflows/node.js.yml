@@ -95,9 +95,7 @@ jobs:
       - name: Run Selenium tests
         run: npm run se:run
         env:
-          CHROMEDRIVER_PORT: 4444
-          SELENIUM_HOST: localhost
-          SELENIUM_PORT: 4444
+          SELENIUM_BROWSER: chrome
           SELENIUM_SERVER_URL: http://localhost:4444/wd/hub
 
   selenium-run-firefox:
@@ -117,9 +115,7 @@ jobs:
       - name: Run Selenium tests
         run: npm run se:run
         env:
-          CHROMEDRIVER_PORT: 4444
-          SELENIUM_HOST: localhost
-          SELENIUM_PORT: 4444
+          SELENIUM_BROWSER: firefox
           SELENIUM_SERVER_URL: http://localhost:4444/wd/hub
 
   selenium-run-edge:
@@ -139,9 +135,7 @@ jobs:
       - name: Run Selenium tests
         run: npm run se:run
         env:
-          CHROMEDRIVER_PORT: 4444
-          SELENIUM_HOST: localhost
-          SELENIUM_PORT: 4444
+          SELENIUM_BROWSER: edge
           SELENIUM_SERVER_URL: http://localhost:4444/wd/hub
 
   selenium-run-safari:
@@ -155,7 +149,5 @@ jobs:
       - name: Run Selenium tests
         run: npm run se:run
         env:
-          CHROMEDRIVER_PORT: 4444
-          SELENIUM_HOST: localhost
-          SELENIUM_PORT: 4444
+          SELENIUM_BROWSER: safari
           SELENIUM_SERVER_URL: http://localhost:4444/wd/hub
