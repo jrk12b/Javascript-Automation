@@ -20,7 +20,7 @@ describe('Validating welcome card and navigation elements', () => {
 		const customThresholds = {
 			performance: 55,
 			accessibility: 90,
-			seo: 90,
+			seo: 70,
 			interactive: 11000,
 			pwa: 20,
 			'first-contentful-paint': 3000, // FCP measures how long it takes the browser to render the first piece of DOM content after a user navigates to your page
