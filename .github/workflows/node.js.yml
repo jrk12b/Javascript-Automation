@@ -77,7 +77,6 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           browser: electron
-
   cypress-run-firefox:
     runs-on: ubuntu-latest
     needs: [format-and-setup, jest-run, postman-run, k6-run]
