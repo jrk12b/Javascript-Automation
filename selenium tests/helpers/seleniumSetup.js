@@ -21,6 +21,11 @@ if (HEADLESS) {
 	firefoxOptions.addArguments('--headless');
 }
 
+const edgeOptions = new edge.Options();
+if (HEADLESS) {
+	edgeOptions.addArguments('--headless');
+}
+
 // Setup function to initialize the driver
 async function setupDriver() {
 	let builder = new Builder().usingServer(SELENIUM_SERVER_URL);
@@ -30,7 +35,7 @@ async function setupDriver() {
 			builder = builder.forBrowser('firefox').setFirefoxOptions(firefoxOptions);
 			break;
 		case 'edge':
-			builder = builder.forBrowser('MicrosoftEdge');
+			builder = builder.forBrowser('MicrosoftEdge').setEdgeOptions(edgeOptions);
 			break;
 		case 'safari':
 			builder = builder.forBrowser('safari');

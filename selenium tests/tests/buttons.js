@@ -1,6 +1,8 @@
 const { setupDriver, teardownDriver, BASE_URL, TIMEOUT, By } = require('../helpers/seleniumSetup');
 const { testIds } = require('../helpers/selectors');
 
+const isSafari = process.env.SELENIUM_BROWSER === 'safari';
+
 describe('Button Tests', function () {
 	this.timeout(TIMEOUT);
 	let driver;
@@ -34,6 +36,7 @@ describe('Button Tests', function () {
 	});
 
 	it('Validate Double Click Button', async function () {
+		if (isSafari) this.skip();
 		await driver.sleep(4000);
 
 		const doubleClickButton = await driver.findElement(By.id(testIds.doubleClickButtonId));

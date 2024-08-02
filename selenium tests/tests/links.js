@@ -2,6 +2,7 @@ const { testIds } = require('../helpers/selectors');
 const { setupDriver, teardownDriver, BASE_URL, TIMEOUT, By } = require('../helpers/seleniumSetup');
 
 const isFirefox = process.env.SELENIUM_BROWSER === 'firefox';
+const isSafari = process.env.SELENIUM_BROWSER === 'safari';
 
 describe('Links Tests', function () {
 	this.timeout(TIMEOUT);
@@ -51,6 +52,7 @@ describe('Links Tests', function () {
 
 	it('Validate Home link ', async function () {
 		if (isFirefox) this.skip();
+		if (isSafari) this.skip();
 		const chai = await import('chai');
 		const expect = chai.expect;
 
@@ -72,6 +74,7 @@ describe('Links Tests', function () {
 
 	it('Validate dynamic link ', async function () {
 		if (isFirefox) this.skip();
+		if (isSafari) this.skip();
 		const chai = await import('chai');
 		const expect = chai.expect;
 

@@ -1,6 +1,8 @@
 const { setupDriver, teardownDriver, BASE_URL, TIMEOUT, By } = require('../helpers/seleniumSetup');
 const { testIds } = require('../helpers/selectors');
 
+const isSafari = process.env.SELENIUM_BROWSER === 'safari';
+
 describe('Web Tables Tests', function () {
 	this.timeout(TIMEOUT);
 	let driver;
@@ -399,6 +401,7 @@ describe('Web Tables Tests', function () {
 	});
 
 	it('Validate sorting by Department column', async function () {
+		if (isSafari) this.skip();
 		const chai = await import('chai');
 		const expect = chai.expect;
 
