@@ -1,10 +1,8 @@
 const { Builder, By } = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
 const firefox = require('selenium-webdriver/firefox');
-const edge = require('selenium-webdriver/edge');
 require('chromedriver');
 require('geckodriver');
-require('edgedriver');
 
 // Constants
 const BASE_URL = 'https://demoqa.com/';
@@ -24,11 +22,6 @@ if (HEADLESS) {
 	firefoxOptions.addArguments('--headless');
 }
 
-const edgeOptions = new edge.Options();
-if (HEADLESS) {
-	edgeOptions.addArguments('--headless');
-}
-
 // Setup function to initialize the driver
 async function setupDriver() {
 	let builder = new Builder().usingServer(SELENIUM_SERVER_URL);
@@ -36,9 +29,6 @@ async function setupDriver() {
 	switch (BROWSER) {
 		case 'firefox':
 			builder = builder.forBrowser('firefox').setFirefoxOptions(firefoxOptions);
-			break;
-		case 'edge':
-			builder = builder.forBrowser('MicrosoftEdge').setEdgeOptions(edgeOptions);
 			break;
 		case 'safari':
 			builder = builder.forBrowser('safari');

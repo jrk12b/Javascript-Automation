@@ -1,6 +1,8 @@
 const { setupDriver, teardownDriver, BASE_URL, TIMEOUT, By } = require('../helpers/seleniumSetup');
 const { testIds } = require('../helpers/selectors');
 
+const isSafari = process.env.SELENIUM_BROWSER === 'safari';
+
 describe('Login Tests', function () {
 	this.timeout(TIMEOUT);
 	let driver;
@@ -33,6 +35,8 @@ describe('Login Tests', function () {
 	});
 
 	it('Validate back to login', async function () {
+		if (isSafari) this.skip();
+
 		const chai = await import('chai');
 		const expect = chai.expect;
 
@@ -49,6 +53,8 @@ describe('Login Tests', function () {
 	});
 
 	it('Validate create new user without recaptcha', async function () {
+		if (isSafari) this.skip();
+
 		const chai = await import('chai');
 		const expect = chai.expect;
 

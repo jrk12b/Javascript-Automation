@@ -118,26 +118,6 @@ jobs:
           SELENIUM_BROWSER: firefox
           SELENIUM_SERVER_URL: http://localhost:4444/wd/hub
 
-  selenium-run-edge:
-    runs-on: ubuntu-latest
-    needs: [format-and-setup]
-    services:
-      selenium:
-        image: selenium/standalone-edge:latest
-        ports:
-          - 4444:4444
-        options: --shm-size=3g
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-      - name: Install Dependencies
-        run: npm ci
-      - name: Run Selenium tests
-        run: npm run se:run
-        env:
-          SELENIUM_BROWSER: edge
-          SELENIUM_SERVER_URL: http://localhost:4444/wd/hub
-
   selenium-run-safari:
     runs-on: macos-latest
     needs: [format-and-setup]

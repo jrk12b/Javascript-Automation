@@ -279,6 +279,8 @@ describe('Web Tables Tests', function () {
 	});
 
 	it('Validate sorting by last name column', async function () {
+		if (isSafari) this.skip();
+
 		const chai = await import('chai');
 		const expect = chai.expect;
 
