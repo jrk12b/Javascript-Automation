@@ -84,13 +84,7 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-      - name: Install Dependencies
-        run: npm ci
-      - name: Run Cypress tests in Firefox
+      - name: Run cypress tests in FIREFOX
         uses: cypress-io/github-action@v6
         with:
           browser: firefox
