@@ -16,7 +16,8 @@
 		"se:run:headless": "HEADLESS=true mocha 'selenium tests/*/*.js'",
 		"se:run": "mocha 'selenium tests/*/*.js'",
 		"format-check": "npx prettier --check .",
-		"format-write": "npx prettier --write ."
+		"format-write": "npx prettier --write .",
+		"k6:pipeline-browser-home": "k6 run 'k6/browser tests/homePagePerformance.js'"
 	},
 	"repository": {
 		"type": "git",

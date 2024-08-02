@@ -51,9 +51,22 @@ jobs:
         with:
           filename: k6/tests/baseline-test.js
 
+  k6-run-browser-home:
+    runs-on: macos-latest
+    needs: [format-and-setup, jest-run, postman-run]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Install Dependencies
+        run: npm ci
+      - name: Install k6
+        run: brew install k6
+      - name: Run k6 home tests
+        run: npm run k6:pipeline-browser-home
+
   cypress-run-chrome:
     runs-on: ubuntu-latest
-    needs: [format-and-setup, jest-run, postman-run, k6-run]
+    needs: [format-and-setup, jest-run, postman-run, k6-run, k6-run-browser-home]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -64,7 +77,7 @@ jobs:
 
   cypress-run-edge:
     runs-on: ubuntu-latest
-    needs: [format-and-setup, jest-run, postman-run, k6-run]
+    needs: [format-and-setup, jest-run, postman-run, k6-run, k6-run-browser-home]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -75,7 +88,7 @@ jobs:
 
   cypress-run-electron:
     runs-on: ubuntu-latest
-    needs: [format-and-setup, jest-run, postman-run, k6-run]
+    needs: [format-and-setup, jest-run, postman-run, k6-run, k6-run-browser-home]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -86,7 +99,7 @@ jobs:
 
   cypress-run-firefox:
     runs-on: ubuntu-latest
-    needs: [format-and-setup, jest-run, postman-run, k6-run]
+    needs: [format-and-setup, jest-run, postman-run, k6-run, k6-run-browser-home]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -103,6 +116,7 @@ jobs:
         jest-run,
         postman-run,
         k6-run,
+        k6-run-browser-home,
         cypress-run-chrome,
         cypress-run-edge,
         cypress-run-electron,
@@ -132,6 +146,7 @@ jobs:
         jest-run,
         postman-run,
         k6-run,
+        k6-run-browser-home,
         cypress-run-chrome,
         cypress-run-edge,
         cypress-run-electron,
@@ -161,6 +176,7 @@ jobs:
         jest-run,
         postman-run,
         k6-run,
+        k6-run-browser-home,
         cypress-run-chrome,
         cypress-run-edge,
         cypress-run-electron,
