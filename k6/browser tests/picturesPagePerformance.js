@@ -1,6 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { browser } from 'k6/browser';
 import { check } from 'k6';
+import selectors from '../../cypress/support/selectors.js';
 
 const k6_thresholds = {
 	browser_http_req_duration: ['p(95)<20000'], // total time for the request
@@ -34,46 +35,33 @@ export default async function () {
 	const homePage = 'https://www.justinkurdila.com/pictures';
 	await browserPage.goto(homePage);
 
-	// const headerText = await browserPage.locator('h1').textContent();
+	const navMenu = browserPage.locator(selectors.wix_navigation_menu);
+	const navMenuVisible = await navMenu.isVisible();
 
-	// const navContainer = browserPage.locator(`[data-testid=${testIds.headerNav.navContainer}]`);
-	// const navContainerVisible = await navContainer.isVisible();
+	const slideShowGallery = browserPage.locator(selectors.slide_show_gallery);
+	const slideShowGalleryVisible = await slideShowGallery.isVisible();
 
-	// const headerNav = browserPage.locator(`[data-testid=${testIds.headerNav.headerNav}]`);
-	// const headerNavVisible = await headerNav.isVisible();
+	const slideShowGalleryItems = browserPage.locator(selectors.slide_show_gallery_items);
+	const slideShowGalleryItemsVisible = await slideShowGalleryItems.isVisible();
 
-	// const welcomeBanner = browserPage.locator(`[data-testid=${testIds.home.welcomeBanner}]`);
-	// const welcomeBannerVisible = await welcomeBanner.isVisible();
+	const contactForm = browserPage.locator(selectors.contact_form);
+	const contactFormVisible = await contactForm.isVisible();
 
-	// const motivation = browserPage.locator(`[data-testid=${testIds.home.motivation}]`);
-	// const motivationVisible = await motivation.isVisible();
+	check(navMenuVisible, {
+		'navMenu is Visible': (v) => v === true,
+	});
 
-	// const details = browserPage.locator(`[data-testid=${testIds.home.details}]`);
-	// const detailsVisible = await details.isVisible();
+	check(slideShowGalleryVisible, {
+		'slideShowGallery is Visible': (v) => v === true,
+	});
 
-	// check(headerText, {
-	// 	headerText: headerText === 'Time Of Day',
-	// });
+	check(slideShowGalleryItemsVisible, {
+		'slideShowGalleryItems is Visible': (v) => v === true,
+	});
 
-	// check(navContainerVisible, {
-	// 	'navContainer is Visible': (v) => v === true,
-	// });
-
-	// check(headerNavVisible, {
-	// 	'headerNav is Visible': (v) => v === true,
-	// });
-
-	// check(welcomeBannerVisible, {
-	// 	'welcomeBanner is Visible': (v) => v === true,
-	// });
-
-	// check(motivationVisible, {
-	// 	'motivation is Visible': (v) => v === true,
-	// });
-
-	// check(detailsVisible, {
-	// 	'details is Visible': (v) => v === true,
-	// });
+	check(contactFormVisible, {
+		'contactForm is Visible': (v) => v === true,
+	});
 
 	browserPage.close();
 }
