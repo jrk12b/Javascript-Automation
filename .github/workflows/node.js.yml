@@ -132,6 +132,7 @@ jobs:
         cypress-run-chrome,
         cypress-run-edge,
         cypress-run-electron,
+        cypress-run-firefox,
       ]
     services:
       selenium:
@@ -163,6 +164,7 @@ jobs:
         cypress-run-chrome,
         cypress-run-edge,
         cypress-run-electron,
+        cypress-run-firefox,
       ]
     services:
       selenium:
@@ -194,6 +196,7 @@ jobs:
         cypress-run-chrome,
         cypress-run-edge,
         cypress-run-electron,
+        cypress-run-firefox,
       ]
     steps:
       - name: Checkout Code
