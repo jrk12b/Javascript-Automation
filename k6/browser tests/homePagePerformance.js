@@ -1,6 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { browser } from 'k6/browser';
 import { check } from 'k6';
+import selectors from '../../cypress/support/selectors.js';
 
 const k6_thresholds = {
 	browser_http_req_duration: ['p(95)<20000'], // total time for the request
@@ -34,46 +35,75 @@ export default async function () {
 	const homePage = 'https://www.justinkurdila.com/';
 	await browserPage.goto(homePage);
 
-	// const headerText = await browserPage.locator('h1').textContent();
+	const navMenu = browserPage.locator(selectors.wix_navigation_menu);
+	const navMenuVisible = await navMenu.isVisible();
 
-	// const navContainer = browserPage.locator(`[data-testid=${testIds.headerNav.navContainer}]`);
-	// const navContainerVisible = await navContainer.isVisible();
+	const experienceSection = browserPage.locator(selectors.data_anchor_experience);
+	const experienceSectionVisible = await experienceSection.isVisible();
 
-	// const headerNav = browserPage.locator(`[data-testid=${testIds.headerNav.headerNav}]`);
-	// const headerNavVisible = await headerNav.isVisible();
+	const educationSection = browserPage.locator(selectors.data_anchor_education);
+	const educationSectionVisible = await educationSection.isVisible();
 
-	// const welcomeBanner = browserPage.locator(`[data-testid=${testIds.home.welcomeBanner}]`);
-	// const welcomeBannerVisible = await welcomeBanner.isVisible();
+	const skillsSection = browserPage.locator(selectors.data_anchor_skills);
+	const skillsSectionVisible = await skillsSection.isVisible();
 
-	// const motivation = browserPage.locator(`[data-testid=${testIds.home.motivation}]`);
-	// const motivationVisible = await motivation.isVisible();
+	const certificationsSection = browserPage.locator(selectors.data_anchor_certifications);
+	const certificationsSectionVisible = await certificationsSection.isVisible();
 
-	// const details = browserPage.locator(`[data-testid=${testIds.home.details}]`);
-	// const detailsVisible = await details.isVisible();
+	const interestsSection = browserPage.locator(selectors.data_anchor_interests);
+	const interestsSectionVisible = await interestsSection.isVisible();
 
-	// check(headerText, {
-	// 	headerText: headerText === 'Time Of Day',
-	// });
+	const slideShowGallery = browserPage.locator(selectors.slide_show_gallery);
+	const slideShowGalleryVisible = await slideShowGallery.isVisible();
 
-	// check(navContainerVisible, {
-	// 	'navContainer is Visible': (v) => v === true,
-	// });
+	const slideShowGalleryItems = browserPage.locator(selectors.slide_show_gallery_items);
+	const slideShowGalleryItemsVisible = await slideShowGalleryItems.isVisible();
 
-	// check(headerNavVisible, {
-	// 	'headerNav is Visible': (v) => v === true,
-	// });
+	const siteHeader = browserPage.locator(selectors.site_header);
+	const siteHeaderVisible = await siteHeader.isVisible();
 
-	// check(welcomeBannerVisible, {
-	// 	'welcomeBanner is Visible': (v) => v === true,
-	// });
+	const contactForm = browserPage.locator(selectors.contact_form);
+	const contactFormVisible = await contactForm.isVisible();
 
-	// check(motivationVisible, {
-	// 	'motivation is Visible': (v) => v === true,
-	// });
+	check(navMenuVisible, {
+		'navMenu is Visible': (v) => v === true,
+	});
 
-	// check(detailsVisible, {
-	// 	'details is Visible': (v) => v === true,
-	// });
+	check(experienceSectionVisible, {
+		'experienceSection is Visible': (v) => v === true,
+	});
+
+	check(educationSectionVisible, {
+		'educationSection is Visible': (v) => v === true,
+	});
+
+	check(skillsSectionVisible, {
+		'skillsSection is Visible': (v) => v === true,
+	});
+
+	check(certificationsSectionVisible, {
+		'certificationsSection is Visible': (v) => v === true,
+	});
+
+	check(interestsSectionVisible, {
+		'certificationsSection is Visible': (v) => v === true,
+	});
+
+	check(slideShowGalleryVisible, {
+		'slideShowGallery is Visible': (v) => v === true,
+	});
+
+	check(slideShowGalleryItemsVisible, {
+		'slideShowGalleryItems is Visible': (v) => v === true,
+	});
+
+	check(siteHeaderVisible, {
+		'siteHeader is Visible': (v) => v === true,
+	});
+
+	check(contactFormVisible, {
+		'contactForm is Visible': (v) => v === true,
+	});
 
 	browserPage.close();
 }
