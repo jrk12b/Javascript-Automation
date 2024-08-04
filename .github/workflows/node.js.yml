@@ -98,7 +98,7 @@ jobs:
         cucumber-run,
         playwright-run-chrome,
         playwright-run-firefox,
-        playwright-run-webkit,
+        playwright-run-safari-webkit,
       ]
     steps:
       - name: Checkout Code
@@ -118,7 +118,7 @@ jobs:
         cucumber-run,
         playwright-run-chrome,
         playwright-run-firefox,
-        playwright-run-webkit,
+        playwright-run-safari-webkit,
       ]
     steps:
       - name: Checkout Code
@@ -140,7 +140,7 @@ jobs:
         cucumber-run,
         playwright-run-chrome,
         playwright-run-firefox,
-        playwright-run-webkit,
+        playwright-run-safari-webkit,
       ]
     steps:
       - name: Checkout Code
@@ -162,7 +162,7 @@ jobs:
         cucumber-run,
         playwright-run-chrome,
         playwright-run-firefox,
-        playwright-run-webkit,
+        playwright-run-safari-webkit,
         k6-run,
         k6-run-browser-home,
         k6-run-browser-pictures,
@@ -185,7 +185,7 @@ jobs:
         cucumber-run,
         playwright-run-chrome,
         playwright-run-firefox,
-        playwright-run-webkit,
+        playwright-run-safari-webkit,
         k6-run,
         k6-run-browser-home,
         k6-run-browser-pictures,
@@ -208,7 +208,7 @@ jobs:
         cucumber-run,
         playwright-run-chrome,
         playwright-run-firefox,
-        playwright-run-webkit,
+        playwright-run-safari-webkit,
         k6-run,
         k6-run-browser-home,
         k6-run-browser-pictures,
@@ -231,7 +231,7 @@ jobs:
         cucumber-run,
         playwright-run-chrome,
         playwright-run-firefox,
-        playwright-run-webkit,
+        playwright-run-safari-webkit,
         k6-run,
         k6-run-browser-home,
         k6-run-browser-pictures,
@@ -254,7 +254,7 @@ jobs:
         cucumber-run,
         playwright-run-chrome,
         playwright-run-firefox,
-        playwright-run-webkit,
+        playwright-run-safari-webkit,
         k6-run,
         k6-run-browser-home,
         k6-run-browser-pictures,
@@ -290,7 +290,7 @@ jobs:
         cucumber-run,
         playwright-run-chrome,
         playwright-run-firefox,
-        playwright-run-webkit,
+        playwright-run-safari-webkit,
         k6-run,
         k6-run-browser-home,
         k6-run-browser-pictures,
@@ -326,7 +326,7 @@ jobs:
         cucumber-run,
         playwright-run-chrome,
         playwright-run-firefox,
-        playwright-run-webkit,
+        playwright-run-safari-webkit,
         k6-run,
         k6-run-browser-home,
         k6-run-browser-pictures,
