@@ -6,7 +6,7 @@
 	"scripts": {
 		"format-check": "npx prettier --check .",
 		"format-write": "npx prettier --write .",
-		"jest": "npx jest",
+		"jest": "npx jest jest/",
 		"postman": "newman run postman/collection.json",
 		"k6": "k6 run k6/load-test.js",
 		"cucumber": "cucumber-js",
