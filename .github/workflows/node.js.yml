@@ -49,7 +49,7 @@ jobs:
       - name: Run cucumber tests
         run: npm run cucumber
 
-  playwright-run:
+  playwright-run-chrome:
     runs-on: ubuntu-latest
     needs: [setup-node, jest-run, postman-run]
     steps:
@@ -59,8 +59,34 @@ jobs:
         run: npm ci
       - name: Install Browsers
         run: npx playwright install
-      - name: Run playwright tests
-        run: npm run playwright
+      - name: Run playwright tests against CHROME
+        run: npm run playwright:chrome
+
+  playwright-run-firefox:
+    runs-on: ubuntu-latest
+    needs: [setup-node, jest-run, postman-run]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Install Dependencies
+        run: npm ci
+      - name: Install Browsers
+        run: npx playwright install
+      - name: Run playwright tests against FIREFOX
+        run: npm run playwright:firefox
+
+  playwright-run-safari-webkit:
+    runs-on: ubuntu-latest
+    needs: [setup-node, jest-run, postman-run]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Install Dependencies
+        run: npm ci
+      - name: Install Browsers
+        run: npx playwright install
+      - name: Run playwright tests against safari-webkit
+        run: npm run playwright:webkit
 
   k6-run:
     runs-on: ubuntu-latest
