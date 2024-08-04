@@ -4,7 +4,7 @@ const chrome = require('selenium-webdriver/chrome');
 
 let driver;
 
-Given('I am on the homepage', async function () {
+Given('I am on the homepage', { timeout: 10000 }, async function () {
 	// Initialize the WebDriver
 	const options = new chrome.Options();
 	options.addArguments('headless');
@@ -12,7 +12,7 @@ Given('I am on the homepage', async function () {
 	driver = await new Builder().forBrowser('chrome').setChromeOptions(options).build();
 
 	// Navigate to the homepage
-	await driver.get('https://justinkurdila.com');
+	await driver.get('https://www.justinkurdila.com');
 });
 
 When('I click the pictures link', async function () {
