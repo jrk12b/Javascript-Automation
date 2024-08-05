@@ -76,7 +76,7 @@ jobs:
         run: npm run playwright:firefox
 
   playwright-run-safari-webkit:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     needs: [setup-node, jest-run, postman-run]
     steps:
       - name: Checkout Code
