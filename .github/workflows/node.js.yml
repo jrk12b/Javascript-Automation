@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  format-and-setup:
+  setup-node:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -19,27 +19,87 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-      - name: Run Format
-        run: npm ci && npm run format-write
+
   jest-run:
     runs-on: ubuntu-latest
-    needs: [format-and-setup]
+    needs: [setup-node]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
       - name: Run jest tests
         run: npm run jest
+
   postman-run:
     runs-on: ubuntu-latest
-    needs: [format-and-setup]
+    needs: [setup-node]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
       - name: Run postman tests
         run: npm run postman
+
+  cucumber-run:
+    runs-on: ubuntu-latest
+    needs: [setup-node, jest-run, postman-run]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Install Dependencies
+        run: npm ci
+      - name: Run cucumber tests
+        run: npm run cucumber
+
+  playwright-run-chrome:
+    runs-on: ubuntu-latest
+    needs: [setup-node, jest-run, postman-run]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Install Dependencies
+        run: npm ci
+      - name: Install Browsers
+        run: npx playwright install
+      - name: Run playwright tests against CHROME
+        run: npm run playwright:chrome
+
+  playwright-run-firefox:
+    runs-on: ubuntu-latest
+    needs: [setup-node, jest-run, postman-run]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Install Dependencies
+        run: npm ci
+      - name: Install Browsers
+        run: npx playwright install
+      - name: Run playwright tests against FIREFOX
+        run: npm run playwright:firefox
+
+  playwright-run-safari-webkit:
+    runs-on: macos-latest
+    needs: [setup-node, jest-run, postman-run]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Install Dependencies
+        run: npm ci
+      - name: Install Browsers
+        run: npx playwright install
+      - name: Run playwright tests against safari-webkit
+        run: npm run playwright:webkit
+
   k6-run:
     runs-on: ubuntu-latest
-    needs: [format-and-setup]
+    needs:
+      [
+        setup-node,
+        jest-run,
+        postman-run,
+        cucumber-run,
+        playwright-run-chrome,
+        playwright-run-firefox,
+        playwright-run-safari-webkit,
+      ]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -47,33 +107,240 @@ jobs:
         uses: grafana/k6-action@v0.2.0
         with:
           filename: k6/tests/baseline-test.js
-  cypress-run-chrome:
-    runs-on: ubuntu-latest
-    needs: [format-and-setup]
+
+  k6-run-browser-home:
+    runs-on: macos-latest
+    needs:
+      [
+        setup-node,
+        jest-run,
+        postman-run,
+        cucumber-run,
+        playwright-run-chrome,
+        playwright-run-firefox,
+        playwright-run-safari-webkit,
+      ]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-      - name: Run cypress tests in CHROME
+      - name: Install Dependencies
+        run: npm ci
+      - name: Install k6
+        run: brew install k6
+      - name: Run k6 home tests
+        run: npm run k6:pipeline-browser-home
+
+  k6-run-browser-pictures:
+    runs-on: macos-latest
+    needs:
+      [
+        setup-node,
+        jest-run,
+        postman-run,
+        cucumber-run,
+        playwright-run-chrome,
+        playwright-run-firefox,
+        playwright-run-safari-webkit,
+      ]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Install Dependencies
+        run: npm ci
+      - name: Install k6
+        run: brew install k6
+      - name: Run k6 pictures tests
+        run: npm run k6:pipeline-browser-pictures
+
+  cypress-run-chrome:
+    runs-on: ubuntu-latest
+    needs:
+      [
+        setup-node,
+        jest-run,
+        postman-run,
+        cucumber-run,
+        playwright-run-chrome,
+        playwright-run-firefox,
+        playwright-run-safari-webkit,
+        k6-run,
+        k6-run-browser-home,
+        k6-run-browser-pictures,
+      ]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Run Cypress tests in CHROME
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
+
   cypress-run-edge:
     runs-on: ubuntu-latest
-    needs: [format-and-setup]
+    needs:
+      [
+        setup-node,
+        jest-run,
+        postman-run,
+        cucumber-run,
+        playwright-run-chrome,
+        playwright-run-firefox,
+        playwright-run-safari-webkit,
+        k6-run,
+        k6-run-browser-home,
+        k6-run-browser-pictures,
+      ]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-      - name: Run cypress tests in EDGE
+      - name: Run Cypress tests in EDGE
         uses: cypress-io/github-action@v6
         with:
           browser: edge
+
   cypress-run-electron:
     runs-on: ubuntu-latest
-    needs: [format-and-setup]
+    needs:
+      [
+        setup-node,
+        jest-run,
+        postman-run,
+        cucumber-run,
+        playwright-run-chrome,
+        playwright-run-firefox,
+        playwright-run-safari-webkit,
+        k6-run,
+        k6-run-browser-home,
+        k6-run-browser-pictures,
+      ]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-      - name: Run cypress tests in ELECTRON
+      - name: Run Cypress tests in ELECTRON
         uses: cypress-io/github-action@v6
         with:
           browser: electron
+
+  cypress-run-firefox:
+    runs-on: ubuntu-latest
+    needs:
+      [
+        setup-node,
+        jest-run,
+        postman-run,
+        cucumber-run,
+        playwright-run-chrome,
+        playwright-run-firefox,
+        playwright-run-safari-webkit,
+        k6-run,
+        k6-run-browser-home,
+        k6-run-browser-pictures,
+      ]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Run Cypress tests in FIREFOX
+        uses: cypress-io/github-action@v6
+        with:
+          browser: firefox
+
+  selenium-run-chrome:
+    runs-on: ubuntu-latest
+    needs:
+      [
+        setup-node,
+        jest-run,
+        postman-run,
+        cucumber-run,
+        playwright-run-chrome,
+        playwright-run-firefox,
+        playwright-run-safari-webkit,
+        k6-run,
+        k6-run-browser-home,
+        k6-run-browser-pictures,
+        cypress-run-chrome,
+        cypress-run-edge,
+        cypress-run-electron,
+        cypress-run-firefox,
+      ]
+    services:
+      selenium:
+        image: selenium/standalone-chrome:latest
+        ports:
+          - 4444:4444
+        options: --shm-size=3g
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Install Dependencies
+        run: npm ci
+      - name: Run Selenium tests
+        run: npm run selenium
+        env:
+          SELENIUM_BROWSER: chrome
+          SELENIUM_SERVER_URL: http://localhost:4444/wd/hub
+
+  selenium-run-firefox:
+    runs-on: ubuntu-latest
+    needs:
+      [
+        setup-node,
+        jest-run,
+        postman-run,
+        cucumber-run,
+        playwright-run-chrome,
+        playwright-run-firefox,
+        playwright-run-safari-webkit,
+        k6-run,
+        k6-run-browser-home,
+        k6-run-browser-pictures,
+        cypress-run-chrome,
+        cypress-run-edge,
+        cypress-run-electron,
+        cypress-run-firefox,
+      ]
+    services:
+      selenium:
+        image: selenium/standalone-firefox:latest
+        ports:
+          - 4444:4444
+        options: --shm-size=3g
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Install Dependencies
+        run: npm ci
+      - name: Run Selenium tests
+        run: npm run selenium
+        env:
+          SELENIUM_BROWSER: firefox
+          SELENIUM_SERVER_URL: http://localhost:4444/wd/hub
+
+  selenium-run-safari:
+    runs-on: macos-latest
+    needs:
+      [
+        setup-node,
+        jest-run,
+        postman-run,
+        cucumber-run,
+        playwright-run-chrome,
+        playwright-run-firefox,
+        playwright-run-safari-webkit,
+        k6-run,
+        k6-run-browser-home,
+        k6-run-browser-pictures,
+        cypress-run-chrome,
+        cypress-run-edge,
+        cypress-run-electron,
+        cypress-run-firefox,
+      ]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Install Dependencies
+        run: npm ci
+      - name: Run Selenium tests
+        run: npm run selenium
+        env:
+          SELENIUM_BROWSER: safari

@@ -1,11 +1,10 @@
 /// <reference types="cypress" />
-import { waitForPageLoad } from '../support/helpers';
 import selectors from '../support/selectors';
 
 describe('Validating contact section elements', () => {
 	beforeEach(() => {
 		cy.visit('https://www.justinkurdila.com/');
-		waitForPageLoad();
+		cy.waitForPageLoad();
 	});
 
 	it('validate contact header exists', () => {
