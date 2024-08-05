@@ -22,6 +22,7 @@ describe('Validating header and navigation elements', () => {
 	});
 
 	it('validate pictures navigation', () => {
+		cy.wait(3000);
 		cy.get(selectors.wix_navigation_menu_item).contains('PICTURES').click();
 		cy.url().should('eq', 'https://www.justinkurdila.com/pictures');
 	});
