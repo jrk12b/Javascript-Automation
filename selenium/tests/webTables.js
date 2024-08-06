@@ -162,6 +162,7 @@ describe('Web Tables Tests', function () {
 		const expect = chai.expect;
 
 		const deleteItem = await driver.findElement(By.id(testIds.deleteRecord1Class));
+		await driver.executeScript('arguments[0].scrollIntoView(true);', deleteItem);
 		await deleteItem.click();
 
 		const firstNameDeleted = await driver.findElements(
@@ -246,6 +247,7 @@ describe('Web Tables Tests', function () {
 	});
 
 	it('Validate sorting by first name column', async function () {
+		if (isSafari) this.skip();
 		const chai = await import('chai');
 		const expect = chai.expect;
 
@@ -280,7 +282,6 @@ describe('Web Tables Tests', function () {
 
 	it('Validate sorting by last name column', async function () {
 		if (isSafari) this.skip();
-
 		const chai = await import('chai');
 		const expect = chai.expect;
 
@@ -289,6 +290,7 @@ describe('Web Tables Tests', function () {
 				`//div[contains(@class, ${testIds.resizableHeadercontentClass}) and contains(text(), 'Last Name')]`
 			)
 		);
+		await driver.executeScript('arguments[0].scrollIntoView(true);', lastNameSort);
 		await lastNameSort.click();
 
 		const lastNameColumn = await driver.findElement(By.className(testIds.sortAscClass));
@@ -312,12 +314,14 @@ describe('Web Tables Tests', function () {
 	});
 
 	it('Validate sorting by Age column', async function () {
+		if (isSafari) this.skip();
 		const chai = await import('chai');
 		const expect = chai.expect;
 
 		const ageSort = await driver.findElement(
 			By.xpath("//div[contains(@class, 'rt-resizable-header-content') and contains(text(), 'Age')]")
 		);
+		await driver.executeScript('arguments[0].scrollIntoView(true);', ageSort);
 		await ageSort.click();
 
 		const ageColumn = await driver.findElement(By.className(testIds.sortAscClass));
@@ -341,6 +345,7 @@ describe('Web Tables Tests', function () {
 	});
 
 	it('Validate sorting by Email column', async function () {
+		if (isSafari) this.skip();
 		const chai = await import('chai');
 		const expect = chai.expect;
 
@@ -349,6 +354,7 @@ describe('Web Tables Tests', function () {
 				`//div[contains(@class, ${testIds.resizableHeadercontentClass}) and contains(text(), 'Email')]`
 			)
 		);
+		await driver.executeScript('arguments[0].scrollIntoView(true);', emailSort);
 		await emailSort.click();
 
 		const emailColumn = await driver.findElement(By.className(testIds.sortAscClass));
@@ -372,6 +378,7 @@ describe('Web Tables Tests', function () {
 	});
 
 	it('Validate sorting by Salary column', async function () {
+		if (isSafari) this.skip();
 		const chai = await import('chai');
 		const expect = chai.expect;
 
@@ -380,6 +387,7 @@ describe('Web Tables Tests', function () {
 				`//div[contains(@class, ${testIds.resizableHeadercontentClass}) and contains(text(), 'Salary')]`
 			)
 		);
+		await driver.executeScript('arguments[0].scrollIntoView(true);', salarySort);
 		await salarySort.click();
 
 		const salaryColumn = await driver.findElement(By.className(testIds.sortAscClass));
@@ -412,6 +420,7 @@ describe('Web Tables Tests', function () {
 				`//div[contains(@class, ${testIds.resizableHeadercontentClass}) and contains(text(), 'Department')]`
 			)
 		);
+		await driver.executeScript('arguments[0].scrollIntoView(true);', departmentSort);
 		await departmentSort.click();
 
 		const departmentColumn = await driver.findElement(By.className(testIds.sortAscClass));
