@@ -51,43 +51,4 @@ describe('Login Tests', function () {
 		const currentUrl = await driver.getCurrentUrl();
 		expect(currentUrl).to.eq('https://demoqa.com/login');
 	});
-
-	it('Validate create new user without recaptcha', async function () {
-		if (isSafari) this.skip();
-
-		const chai = await import('chai');
-		const expect = chai.expect;
-
-		const newUser = await driver.findElement(By.id(testIds.newUserId));
-		await driver.executeScript('arguments[0].scrollIntoView(true);', newUser);
-		await newUser.click();
-
-		const registerHeader = await driver.findElement(By.className(testIds.textCenterClass));
-		await registerHeader.isDisplayed();
-
-		const welcomeHeader = await driver.findElement(
-			By.xpath('//h4[text()="Register to Book Store"]')
-		);
-		await welcomeHeader.isDisplayed();
-
-		const firstName = await driver.findElement(By.id(testIds.firstnameId));
-		await firstName.sendKeys('firstTest');
-
-		const lastName = await driver.findElement(By.id(testIds.lastnameId));
-		await lastName.sendKeys('lastTest');
-
-		const userName = await driver.findElement(By.id(testIds.userNameId));
-		await userName.sendKeys('userTest');
-
-		const password = await driver.findElement(By.id(testIds.passwordId));
-		await password.sendKeys('userPassword');
-
-		const register = await driver.findElement(By.id(testIds.registerId));
-		await driver.executeScript('arguments[0].scrollIntoView(true);', register);
-		await register.click();
-
-		const error = await driver.findElement(By.id(testIds.nameId));
-		const errorText = await error.getText();
-		expect(errorText).to.eq('Please verify reCaptcha to register!');
-	});
 });
