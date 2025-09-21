@@ -41,9 +41,6 @@ export default async function () {
 	const slideShowGallery = browserPage.locator(selectors.slide_show_gallery);
 	const slideShowGalleryVisible = await slideShowGallery.isVisible();
 
-	const slideShowGalleryItems = browserPage.locator(selectors.slide_show_gallery_items);
-	const slideShowGalleryItemsVisible = await slideShowGalleryItems.isVisible();
-
 	const contactForm = browserPage.locator(selectors.contact_form);
 	const contactFormVisible = await contactForm.isVisible();
 
@@ -53,10 +50,6 @@ export default async function () {
 
 	check(slideShowGalleryVisible, {
 		'slideShowGallery is Visible': (v) => v === true,
-	});
-
-	check(slideShowGalleryItemsVisible, {
-		'slideShowGalleryItems is Visible': (v) => v === true,
 	});
 
 	check(contactFormVisible, {

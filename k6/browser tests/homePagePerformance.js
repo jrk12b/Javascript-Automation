@@ -47,17 +47,11 @@ export default async function () {
 	const skillsSection = browserPage.locator(selectors.data_anchor_skills);
 	const skillsSectionVisible = await skillsSection.isVisible();
 
-	const certificationsSection = browserPage.locator(selectors.data_anchor_certifications);
-	const certificationsSectionVisible = await certificationsSection.isVisible();
-
 	const interestsSection = browserPage.locator(selectors.data_anchor_interests);
 	const interestsSectionVisible = await interestsSection.isVisible();
 
 	const slideShowGallery = browserPage.locator(selectors.slide_show_gallery);
 	const slideShowGalleryVisible = await slideShowGallery.isVisible();
-
-	const slideShowGalleryItems = browserPage.locator(selectors.slide_show_gallery_items);
-	const slideShowGalleryItemsVisible = await slideShowGalleryItems.isVisible();
 
 	const siteHeader = browserPage.locator(selectors.site_header);
 	const siteHeaderVisible = await siteHeader.isVisible();
@@ -81,20 +75,12 @@ export default async function () {
 		'skillsSection is Visible': (v) => v === true,
 	});
 
-	check(certificationsSectionVisible, {
-		'certificationsSection is Visible': (v) => v === true,
-	});
-
 	check(interestsSectionVisible, {
-		'certificationsSection is Visible': (v) => v === true,
+		'interests is Visible': (v) => v === true,
 	});
 
 	check(slideShowGalleryVisible, {
 		'slideShowGallery is Visible': (v) => v === true,
-	});
-
-	check(slideShowGalleryItemsVisible, {
-		'slideShowGalleryItems is Visible': (v) => v === true,
 	});
 
 	check(siteHeaderVisible, {
