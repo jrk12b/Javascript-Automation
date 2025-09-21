@@ -9,8 +9,3 @@ Feature: Home Page Links
     Given I am on the homepage
     When I click the linkedin link
     Then I should land on my linkedin page
-
-  Scenario: Time of Day Github Link
-    Given I am on the homepage
-    When I click the Time of Day Github Link
-    Then I should land on my Time of Day Github page

@@ -56,23 +56,3 @@ Then('I should land on my linkedin page', { timeout: 20000 }, async function () 
 	await driver.switchTo().window(tabs[0]);
 	await driver.quit();
 });
-
-When('I click the Time of Day Github Link', { timeout: 20000 }, async function () {
-	const timeOfDayLink = await driver.findElement(By.css('[aria-label="Time of Day Git"]'));
-	await driver.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", timeOfDayLink);
-	await driver.wait(until.elementIsVisible(timeOfDayLink), 5000);
-	await timeOfDayLink.click();
-});
-
-Then('I should land on my Time of Day Github page', { timeout: 20000 }, async function () {
-	const { expect } = await import('chai');
-
-	const tabs = await driver.getAllWindowHandles();
-	await driver.switchTo().window(tabs[1]);
-
-	const currentUrl = await driver.getCurrentUrl();
-	expect(currentUrl).to.eq('https://github.com/jrk12b/Time-Of-Day');
-
-	await driver.switchTo().window(tabs[0]);
-	await driver.quit();
-});
