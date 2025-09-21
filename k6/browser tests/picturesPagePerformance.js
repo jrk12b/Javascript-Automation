@@ -38,7 +38,6 @@ export default async function () {
 	const navMenu = browserPage.locator(selectors.wix_navigation_menu);
 	const navMenuVisible = await navMenu.isVisible();
 
-	const slideShowGallery = browserPage.locator(selectors.slide_show_gallery);
 	const slideShowGalleryVisible = await slideShowGallery.isVisible();
 
 	const contactForm = browserPage.locator(selectors.contact_form);

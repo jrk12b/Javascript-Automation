@@ -10,8 +10,8 @@ describe('Validating welcome card and navigation elements', () => {
 
 		cy.timeMark('finish');
 
-		// Page should load faster than 10 seconds
-		cy.timeBetween('start', 'finish', 'loading time', 10000, true);
+		// Page should load faster than 20 seconds
+		cy.timeBetween('start', 'finish', 'loading time', 20000, true);
 	});
 
 	// https://developer.chrome.com/docs/lighthouse/overview

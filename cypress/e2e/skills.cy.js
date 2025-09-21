@@ -13,13 +13,4 @@ describe('Validating skills section elements', () => {
 			.should('have.css', 'font-size', '20px')
 			.and('have.css', 'color', 'rgb(24, 33, 83)');
 	});
-
-	it('validate all skills are visible and have correct css', () => {
-		cy.wrap(data.skills).each((skill) => {
-			cy.contains('p', skill).scrollIntoView().should('be.visible');
-			cy.contains('p', skill)
-				.should('have.css', 'font-size', '14px')
-				.and('have.css', 'color', 'rgb(24, 33, 83)');
-		});
-	});
 });

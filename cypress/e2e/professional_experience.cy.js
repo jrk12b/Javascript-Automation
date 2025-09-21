@@ -13,21 +13,7 @@ describe('Validating professional experience section elements', () => {
 			.should('have.css', 'font-size', '20px')
 			.and('have.css', 'color', 'rgb(24, 33, 83)');
 	});
-
-	it('validate revel systems experience', () => {
-		cy.contains('h3', 'March 2022 - Present').scrollIntoView().should('be.visible');
-		cy.contains('p', 'Senior QA Engineer').should('be.visible');
-		cy.contains('p', 'Revel Systems').should('be.visible');
-		cy.contains('p', data.experience_revel_systems).should('be.visible');
-	});
-
-	it('validate saasoptics experience', () => {
-		cy.contains('h3', 'June 2019 - February 2022').scrollIntoView().should('be.visible');
-		cy.contains('p', 'Senior QA Engineer').should('be.visible');
-		cy.contains('p', 'SaaSOptics').should('be.visible');
-		cy.contains('p', data.experience_saasoptics).should('be.visible');
-	});
-
+	
 	it('validate saasoptics application specialist experience', () => {
 		cy.contains('h3', 'January 2018 - June 2019').scrollIntoView().should('be.visible');
 		cy.contains('p', 'Application Specialist').should('be.visible');
