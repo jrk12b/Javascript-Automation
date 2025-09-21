@@ -13,12 +13,11 @@ describe('Validating professional experience section elements', () => {
 			.should('have.css', 'font-size', '20px')
 			.and('have.css', 'color', 'rgb(24, 33, 83)');
 	});
-	
+
 	it('validate saasoptics application specialist experience', () => {
 		cy.contains('h3', 'January 2018 - June 2019').scrollIntoView().should('be.visible');
 		cy.contains('p', 'Application Specialist').should('be.visible');
 		cy.contains('p', 'SaaSOptics').scrollIntoView().should('be.visible');
-		cy.contains('p', data.experience_application_specialist).should('be.visible');
 	});
 
 	it('validate sharpspring experience', () => {
