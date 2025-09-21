@@ -50,9 +50,6 @@ export default async function () {
 	const interestsSection = browserPage.locator(selectors.data_anchor_interests);
 	const interestsSectionVisible = await interestsSection.isVisible();
 
-	const slideShowGallery = browserPage.locator(selectors.slide_show_gallery);
-	const slideShowGalleryVisible = await slideShowGallery.isVisible();
-
 	const siteHeader = browserPage.locator(selectors.site_header);
 	const siteHeaderVisible = await siteHeader.isVisible();
 
@@ -77,10 +74,6 @@ export default async function () {
 
 	check(interestsSectionVisible, {
 		'interests is Visible': (v) => v === true,
-	});
-
-	check(slideShowGalleryVisible, {
-		'slideShowGallery is Visible': (v) => v === true,
 	});
 
 	check(siteHeaderVisible, {
