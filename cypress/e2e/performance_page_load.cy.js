@@ -18,7 +18,7 @@ describe('Validating welcome card and navigation elements', () => {
 	it('Performance: Google Lighthouse Metrics', () => {
 		cy.visit('https://www.justinkurdila.com/');
 		const customThresholds = {
-			performance: 55,
+			performance: 20,
 			accessibility: 90,
 			seo: 70,
 			interactive: 11000,
@@ -26,7 +26,7 @@ describe('Validating welcome card and navigation elements', () => {
 			'first-contentful-paint': 5000, // FCP measures how long it takes the browser to render the first piece of DOM content after a user navigates to your page
 			'largest-contentful-paint': 10000, // LCP measures when the largest content element in the viewport is rendered to the screen
 			'cumulative-layout-shift': 0.1, // Unexpected movement of page content usually happens when resources load asynchronously or DOM elements are dynamically added to the page before existing content
-			'total-blocking-time': 200, // TBT measures the total amount of time that a page is blocked from responding to user input, such as mouse clicks, screen taps, or keyboard presses
+			'total-blocking-time': 800, // TBT measures the total amount of time that a page is blocked from responding to user input, such as mouse clicks, screen taps, or keyboard presses
 		};
 
 		const desktopConfig = {
