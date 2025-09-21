@@ -27,7 +27,7 @@ describe('Validating contact section elements', () => {
 		cy.get('div[data-mesh-id="SITE_FOOTERinlineContent"]').should('exist');
 		cy.get('div[data-mesh-id="SITE_FOOTERinlineContent"]').within(() => {
 			cy.contains('p', 'Justin Kurdila').scrollIntoView().should('be.visible');
-			cy.contains('p', 'Senior QA Engineer').scrollIntoView().should('be.visible');
+			cy.contains('p', 'Senior QA/DevOps Engineer').scrollIntoView().should('be.visible');
 			cy.contains('p', 'Email').scrollIntoView().should('be.visible');
 			cy.contains('a', 'justinkurdila@gmail.com').scrollIntoView().should('be.visible');
 			cy.contains('a', 'justinkurdila@gmail.com').should(
@@ -39,6 +39,6 @@ describe('Validating contact section elements', () => {
 	});
 
 	it('validate footer', () => {
-		cy.contains('p', '© 2024 By Justin Kurdila').scrollIntoView().should('be.visible');
+		cy.contains('p', '© 2025 By Justin Kurdila').scrollIntoView().should('be.visible');
 	});
 });

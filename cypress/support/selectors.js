@@ -6,8 +6,6 @@ export default {
 	data_anchor_skills: '[data-anchor="dataItem-irm4ngvf"]',
 	data_anchor_certifications: '[data-anchor="dataItem-lcnjrqyo"]',
 	data_anchor_interests: '[data-anchor="dataItem-irm4nxd1"]',
-	slide_show_gallery_items: '[data-testid="slide-show-gallery-items"]',
-	slide_show_gallery: '[data-testid="slide-show-gallery"]',
 	link_element: '[data-testid="linkElement"]',
 	big_container: '[data-testid="container-bg"]',
 	site_header: '#SITE_HEADER',

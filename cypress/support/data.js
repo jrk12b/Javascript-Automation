@@ -24,7 +24,6 @@ export default {
 		'INTERESTS AND HOBBIES',
 	],
 	skills: [
-		'Javascript, Cypress, K6, Postman',
 		'Python and Selenium',
 		'Agile and Scrum Methodologies',
 		'Jira and Salesforce',

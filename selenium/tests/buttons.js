@@ -113,20 +113,4 @@ describe('Button Tests', function () {
 		const clickbuttonMessage = await driver.findElement(By.id(testIds.dynamicClickMessageId));
 		await clickbuttonMessage.isDisplayed();
 	});
-
-	it('Validate right clicking Click Button', async function () {
-		const chai = await import('chai');
-		const expect = chai.expect;
-
-		const clickButton = await driver.findElement(
-			By.xpath(
-				`//button[contains(@class, '${testIds.primaryButtonClass}') and contains(text(), 'Click Me')]`
-			)
-		);
-		let actions = driver.actions({ async: true });
-		await actions.contextClick(clickButton).perform();
-
-		const clickbuttonMessage = await driver.findElements(By.id(testIds.dynamicClickMessageId));
-		expect(clickbuttonMessage.length).to.eq(0);
-	});
 });

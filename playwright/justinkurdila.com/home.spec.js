@@ -23,13 +23,13 @@ test.describe('Home Page Tests', () => {
 		const linkedin = await page.locator('[aria-label="LinkedIn"]');
 		await expect(linkedin).toBeVisible();
 
-		const jobtitle = await page.locator('#comp-kl68vs56', { hasText: 'Senior QA Engineer' });
+		const jobtitle = await page.locator('#comp-kl68vs56', { hasText: 'Senior QA/DevOps Engineer' });
 		await expect(jobtitle).toBeVisible();
 
 		const emailTitle = await page.locator('#comp-kl695fo1', { hasText: 'justinkurdila@gmail.com' });
 		await expect(emailTitle).toBeVisible();
 
-		const addressTitle = await page.locator('#comp-kl696pxa', { hasText: 'Atlanta, GA' });
+		const addressTitle = await page.locator('#comp-kl696pxa', { hasText: 'Charlotte, NC' });
 		await expect(addressTitle).toBeVisible();
 
 		const resumeLink = await page.locator('[aria-label="Resume PDF"]');
@@ -37,9 +37,6 @@ test.describe('Home Page Tests', () => {
 
 		const coverLetterLink = await page.locator('[aria-label="Cover Letter"]');
 		await expect(coverLetterLink).toBeVisible();
-
-		const quoteLink = await page.locator('#comp-kxdkuwi1');
-		await expect(quoteLink).toBeVisible();
 	});
 
 	test('Validate Intro Card is visible', async ({ page }) => {
@@ -48,12 +45,6 @@ test.describe('Home Page Tests', () => {
 
 		const helloTitle = await page.locator('#comp-irlsm0yx', { hasText: "Hello! I'm Justin" });
 		await expect(helloTitle).toBeVisible();
-
-		const helloParagraph = await page.locator('#comp-kl69ao4k', {
-			hasText:
-				'10+ years’ experience in high-quality technology and service businesses with 5+ years in software quality assurance. Exceptional level of teamwork and collaboration skills, automated/manual testing, technical support, and troubleshooting. Proven expertise in assuring software performance and reliability by executing manual and automated testing, including test case development and execution, implementation of test plans, and bug tracking.',
-		});
-		await expect(helloParagraph).toBeVisible();
 	});
 
 	test('Validate Online Portfolio Card is visible', async ({ page }) => {
@@ -61,8 +52,10 @@ test.describe('Home Page Tests', () => {
 		await expect(headerText).toBeVisible();
 
 		const javascriptAutomationLink = await page.locator('[data-testid="stylablebutton-label"]', {
-			hasText: 'Javascript Automation Github',
+			hasText: 'Javascript Automation Git',
 		});
+		await javascriptAutomationLink.scrollIntoViewIfNeeded();
+
 		await expect(javascriptAutomationLink).toBeVisible();
 
 		const qaManifestoLink = await page.locator('[data-testid="stylablebutton-label"]', {
@@ -71,7 +64,7 @@ test.describe('Home Page Tests', () => {
 		await expect(qaManifestoLink).toBeVisible();
 
 		const timeOfDayLink = await page.locator('[data-testid="stylablebutton-label"]', {
-			hasText: 'Time of Day Github',
+			hasText: 'Time of Day Git',
 		});
 		await expect(timeOfDayLink).toBeVisible();
 	});
@@ -100,16 +93,6 @@ test.describe('Home Page Tests', () => {
 
 		const skillsSection = await page.locator('#mediairm34ucr28');
 		await expect(skillsSection).toBeVisible();
-	});
-
-	test('Validate Certifications Card is visible', async ({ page }) => {
-		const certificationsHeader = await page.locator('#comp-ll8en3m81', {
-			hasText: 'CERTIFICATIONS',
-		});
-		await expect(certificationsHeader).toBeVisible();
-
-		const certificationsSection = await page.locator('#comp-lcnj8rsw1');
-		await expect(certificationsSection).toBeVisible();
 	});
 
 	test('Validate Interests Card is visible', async ({ page }) => {

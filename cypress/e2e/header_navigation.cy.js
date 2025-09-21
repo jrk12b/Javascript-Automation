@@ -39,13 +39,6 @@ describe('Validating header and navigation elements', () => {
 		cy.get(selectors.data_anchor_skills).find('p').contains('SKILLS').should('exist');
 	});
 
-	it('validate certification navigation', () => {
-		cy.get(selectors.data_anchor_certifications)
-			.find('p')
-			.contains('CERTIFICATIONS')
-			.should('exist');
-	});
-
 	it('validate interests navigation', () => {
 		cy.get(selectors.data_anchor_interests)
 			.find('p')

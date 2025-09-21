@@ -1,5 +1,7 @@
 # Javascript QA Automation
 
+[![QA Test Automation](https://github.com/jrk12b/Javascript-Automation/actions/workflows/node.js.yml/badge.svg)](https://github.com/jrk12b/Javascript-Automation/actions/workflows/node.js.yml)
+
 This repository holds the QA Automation to test the website https://www.justinkurdila.com/ and https://demoqa.com/
 
 ## Testing Framework

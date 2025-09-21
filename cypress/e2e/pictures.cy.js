@@ -36,6 +36,6 @@ describe('Validating contact section elements', () => {
 	});
 
 	it('validate footer', () => {
-		cy.contains('p', '© 2024 By Justin Kurdila').scrollIntoView().should('be.visible');
+		cy.contains('p', '© 2025 By Justin Kurdila').scrollIntoView().should('be.visible');
 	});
 });
