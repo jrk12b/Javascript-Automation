@@ -221,29 +221,6 @@ jobs:
         with:
           browser: electron
 
-  cypress-run-firefox:
-    runs-on: ubuntu-latest
-    needs:
-      [
-        setup-node,
-        jest-run,
-        postman-run,
-        cucumber-run,
-        playwright-run-chrome,
-        playwright-run-firefox,
-        playwright-run-safari-webkit,
-        k6-run,
-        k6-run-browser-home,
-        k6-run-browser-pictures,
-      ]
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-      - name: Run Cypress tests in FIREFOX
-        uses: cypress-io/github-action@v6
-        with:
-          browser: firefox
-
   selenium-run-chrome:
     runs-on: ubuntu-latest
     needs:
@@ -261,7 +238,6 @@ jobs:
         cypress-run-chrome,
         cypress-run-edge,
         cypress-run-electron,
-        cypress-run-firefox,
       ]
     services:
       selenium:
@@ -297,7 +273,6 @@ jobs:
         cypress-run-chrome,
         cypress-run-edge,
         cypress-run-electron,
-        cypress-run-firefox,
       ]
     services:
       selenium:
@@ -333,7 +308,6 @@ jobs:
         cypress-run-chrome,
         cypress-run-edge,
         cypress-run-electron,
-        cypress-run-firefox,
       ]
     steps:
       - name: Checkout Code
