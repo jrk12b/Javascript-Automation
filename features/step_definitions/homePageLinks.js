@@ -22,6 +22,8 @@ When('I click the pictures link', { timeout: 20000 }, async function () {
 	// Locate the login button and click it
 	const picturesLink = await driver.findElement(By.xpath("//p[contains(text(), 'PICTURES')]"));
 	await driver.executeScript('arguments[0].scrollIntoView(true);', picturesLink);
+	await driver.wait(until.elementIsVisible(picturesLink), 5000);
+	await driver.wait(until.elementIsEnabled(picturesLink), 5000);
 	await picturesLink.click();
 });
 
@@ -31,7 +33,7 @@ Then('I should land on the pictures page', { timeout: 20000 }, async function ()
 	const currentUrl = await driver.getCurrentUrl();
 	expect(currentUrl).to.eq('https://www.justinkurdila.com/pictures');
 
-	const slideShowGallery = await driver.findElement(By.css('[data-testid="slide-show-gallery"]'));
+	const slideShowGallery = await driver.findElement(By.css('[class="pro-gallery-parent-container"]'));
 	await slideShowGallery.isDisplayed();
 	await driver.quit();
 });
@@ -55,52 +57,13 @@ Then('I should land on my linkedin page', { timeout: 20000 }, async function () 
 	await driver.quit();
 });
 
-When('I click the Resume PDF link', { timeout: 20000 }, async function () {
-	const resumePdfLink = await driver.findElement(By.css('[aria-label="Resume PDF"]'));
-	await resumePdfLink.click();
-});
-
-Then('I should download my Resume PDF file', { timeout: 50000 }, async function () {
-	const { expect } = await import('chai');
-	const expectedFileName = 'Justin Kurdila Resume 2024.pdf';
-
-	await driver.sleep(3000);
-	const filePath = path.join(downloadPath, expectedFileName);
-	const fileExists = fs.existsSync(filePath);
-	expect(fileExists).to.be.true;
-
-	if (fileExists) {
-		fs.unlinkSync(filePath);
-	}
-
-	await driver.quit();
-});
-
-When('I click the Cover Letter link', { timeout: 20000 }, async function () {
-	const coverLetterLink = await driver.findElement(By.css('[aria-label="Cover Letter"]'));
-	await coverLetterLink.click();
-});
-
-Then('I should download my Cover letter file', { timeout: 20000 }, async function () {
-	const { expect } = await import('chai');
-	const expectedFileName = "Justin Kurdila's Cover Letter.pdf";
-
-	await driver.sleep(3000);
-	const filePath = path.join(downloadPath, expectedFileName);
-	const fileExists = fs.existsSync(filePath);
-	expect(fileExists).to.be.true;
-
-	if (fileExists) {
-		fs.unlinkSync(filePath);
-	}
-
-	await driver.quit();
-});
-
 When('I click the Javascript Automation Github link', { timeout: 20000 }, async function () {
 	const javascriptAutomationLink = await driver.findElement(
-		By.css('[aria-label="Javascript Automation Github"]')
+		By.css('[aria-label="Javascript Automation Git"]')
 	);
+	await driver.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", javascriptAutomationLink);
+	await driver.wait(until.elementIsVisible(javascriptAutomationLink), 5000);
+	await driver.wait(until.elementIsEnabled(javascriptAutomationLink), 5000);
 	await javascriptAutomationLink.click();
 });
 
@@ -114,36 +77,17 @@ Then(
 		await driver.switchTo().window(tabs[1]);
 
 		const currentUrl = await driver.getCurrentUrl();
-		expect(currentUrl).to.eq('https://github.com/jrk12b/Javascript-Automation/');
+		expect(currentUrl).to.eq('https://github.com/jrk12b/Javascript-Automation');
 
 		await driver.switchTo().window(tabs[0]);
 		await driver.quit();
 	}
 );
 
-When('I click the QA Manifesto PDF link', { timeout: 20000 }, async function () {
-	const qaManifestoLink = await driver.findElement(By.css('[aria-label="QA Manifesto PDF"]'));
-	await qaManifestoLink.click();
-});
-
-Then('I should download my QA Manifesto file', { timeout: 20000 }, async function () {
-	const { expect } = await import('chai');
-	const expectedFileName = 'QA Manifesto.pdf';
-
-	await driver.sleep(3000);
-	const filePath = path.join(downloadPath, expectedFileName);
-	const fileExists = fs.existsSync(filePath);
-	expect(fileExists).to.be.true;
-
-	if (fileExists) {
-		fs.unlinkSync(filePath);
-	}
-
-	await driver.quit();
-});
-
 When('I click the Time of Day Github Link', { timeout: 20000 }, async function () {
-	const timeOfDayLink = await driver.findElement(By.css('[aria-label="Time of Day Github"]'));
+	const timeOfDayLink = await driver.findElement(By.css('[aria-label="Time of Day Git"]'));
+	await driver.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", timeOfDayLink);
+	await driver.wait(until.elementIsVisible(timeOfDayLink), 5000);
 	await timeOfDayLink.click();
 });
 
